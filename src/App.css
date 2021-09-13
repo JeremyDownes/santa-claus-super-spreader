@@ -2,38 +2,43 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
 }
 
-.App-header {
+.App {
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+#player, .enemy {
+  height:  1rem;
+  width: 1rem;
+  background-color: white;
+  position: absolute;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.enemy {
+  background-color: red;
+}
+
+#key-capture {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+#gameboard {
+  width: 100vh;
+  height: 100vh;
+  position: relative;
+  background-color: #FFFFFF05;
 }
