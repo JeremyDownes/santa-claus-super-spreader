@@ -18,11 +18,14 @@ export const inputSlice = createSlice({
     },
     down: (state) => {
       state.y += state.y<99? 1 : 0
-    },    
+    },
+    shoot: () => {},
+    rotLeft: () => {}, 
+    rotRight: () => {}, 
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { right, left, up, down} = inputSlice.actions
+export const { right, left, up, down, shoot, rotLeft, rotRight} = inputSlice.actions
 
 export default inputSlice.reducer

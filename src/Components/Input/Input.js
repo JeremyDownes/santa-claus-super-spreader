@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import './Input.css';
 
-import { left, right, up, down } from '../../features/input/inputslice'
+import { left, right, up, down, shoot, rotLeft, rotRight } from '../../features/input/inputslice'
 
 function Input(props) {
 
 
 const keyDown = (e) => {
+    console.log(e.keyCode)
+    if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(rotLeft()) }
+    if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(rotRight()) }
     if(e.keyCode===13){ console.log(e.keyCode) }
-    if(e.keyCode===32){ console.log(e.keyCode) }
+    if(e.keyCode===32){ props.registerDispatch(shoot()) }
     if(e.keyCode===37){ props.registerDispatch(left()) }
     if(e.keyCode===39){ props.registerDispatch(right()) }  
     if(e.keyCode===38){ props.registerDispatch(up()) } //up

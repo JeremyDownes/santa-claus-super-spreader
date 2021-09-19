@@ -17,7 +17,12 @@ let ystring = y+'vh'
 
 
 useEffect(() => {
+  if(x===-0||x===100||y===0||y===100) {
+    props.registerDispatch({type:'bullet/die', payload: {id: id} })    
+    return
+  }
 
+  props.registerDispatch({type:'bullet/move', payload: {id: id} })
   // if(player.x===location[0]&&player.y===location[1]){
   //   dispatch({type:'bullet/modXY', payload: {id: id, direction: [direction[0]*-1, direction[1]] } })
   // }
@@ -39,7 +44,7 @@ useEffect(() => {
 
 
   return (
-    <div className='bullet' style={{top: ystring, left: xstring}} > </div>
+    <div className='bullet' style={{top: ystring, left: xstring}} id={id}> </div>
         
   );
 }

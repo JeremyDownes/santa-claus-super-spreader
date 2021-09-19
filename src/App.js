@@ -18,11 +18,6 @@ let bid = 0
 let key = 0
 
 const registerDispatch = (newEvent)=>{
-  events.forEach((event)=>{
-    if(event.id===newEvent.id) {
-      return
-    }
-  })
   events.push(newEvent)
 }
 

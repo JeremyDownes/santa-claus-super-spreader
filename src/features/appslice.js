@@ -3,7 +3,7 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: {
     enemies: [{type: 'box', direction: [1,0], location: [0,0]},{tyoe: 'box', direction: [1,0], location: [20,20]}],
-    bullets: [{direction: [0,-1], location: [50,90]}],
+    bullets: [],
     x: 20,
     y: 10,
   },
@@ -23,6 +23,17 @@ export const appSlice = createSlice({
             state.enemies[id].location[0] += .25*state.enemies[id].direction[0]
             state.enemies[id].location[1] += .25*state.enemies[id].direction[1]
           break
+          case 'bullet/move':
+            id = action.payload.id
+            state.bullets[id].location[0] += 1*state.bullets[id].direction[0]
+            state.bullets[id].location[1] += 1*state.bullets[id].direction[1]
+          break 
+          case 'bullet/die':
+            id = action.payload.id
+            state.bullets[id].direction = [0,0]
+            state.bullets[id].location = [0,0]
+            state.bullets[id].remove = true
+          break                    
           case 'input/up':
             state.y -= state.y>0 ? 1 : 0
           break
@@ -35,8 +46,12 @@ export const appSlice = createSlice({
           case 'input/right':
             state.x += state.x<99? 1 : 0
           break
+          case 'input/shoot':
+            state.bullets.push({direction: [0,-1], location: [state.x,state.y], remove: false})
+          break          
         }
       })
+      state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})
     }
   },
 })
