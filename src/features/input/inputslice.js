@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const playerSlice = createSlice({
-  name: 'player',
+export const inputSlice = createSlice({
+  name: 'input',
   initialState: {
     x: 0,
     y: 0,
@@ -23,6 +23,6 @@ export const playerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { right, left, up, down} = playerSlice.actions
+export const { right, left, up, down} = inputSlice.actions
 
-export default playerSlice.reducer
+export default inputSlice.reducer

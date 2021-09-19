@@ -1,6 +1,7 @@
-#player {
-  height:  1vh;
-  width: 1vh;
+#piece {
+  height:  2vh;
+  width: 2vh;
   background-color: white;
   position: absolute;
 }
+

@@ -3,28 +3,25 @@ import { createSlice } from '@reduxjs/toolkit'
 export const enemySlice = createSlice({
   name: 'enemy',
   initialState: {
-    x: 0,
-    y: 0,
-    xMod: 1,
+    enemies: [{type: 'box', direction: [1,0], location: [0,0]},{type: 'box', direction: [1,0], location: [20,20]}],
   },
   reducers: {
 
-    moveX: (state) => {
-      state.x += .25*state.xMod
+    move: (state, i) => {
+      let id = i.payload.id
+      state.enemies[id].location[0] += .25*state.enemies[id].direction[0]
+      state.enemies[id].location[1] += .25*state.enemies[id].direction[1]
     },
-    up: (state) => {
-      state.y -= 1
-    },
-    down: (state) => {
-      state.y += 1
-    },  
-    modX: (state) => {
-      state.xMod *= -1
+    modXY: (state, i) => {
+      let id = i.payload.id
+      state.enemies[id].direction = i.payload.direction
+      state.enemies[id].location[0] += .25*state.enemies[id].direction[0]
+      state.enemies[id].location[1] += .25*state.enemies[id].direction[1]
     },  
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { moveX, up, down, modX} = enemySlice.actions
+export const { move,modXY} = enemySlice.actions
 
 export default enemySlice.reducer

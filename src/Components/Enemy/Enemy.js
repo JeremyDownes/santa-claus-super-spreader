@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { moveX, up, down, modX } from '../../features/enemy/enemyslice'
+import { useSelector } from 'react-redux'
 import './Enemy.css';
 
 
-function Enemy() {
-
-const x = useSelector((state) => state.enemy.x)
-const y = useSelector((state) => state.enemy.y)
-const dispatch = useDispatch()
-const [localState, setLocalState] = useState( useSelector((state) => state.enemy) )
+function Enemy(props) {
+const id = props.id
+const x = useSelector((state) => state.app.enemies[id].location[0])
+const y = useSelector((state) => state.app.enemies[id].location[1])
+const player = useSelector((state) => state.app)
+const direction = useSelector((state) => state.app.enemies[id].direction)
+const location = useSelector((state) => state.app.enemies[id].location)
 
 let xstring = x+'vh'
 let ystring = y+'vh'
 
 
 useEffect(() => {
-  if(x===100||x===-1) {
-    dispatch(modX())
-    dispatch(moveX())    
-    return
+  if(player.x===location[0]&&player.y===location[1]){
+    props.registerDispatch({type:'enemy/modXY', payload: {id: id, direction: [direction[0]*-1, direction[1]] } })
   }
-setTimeout(()=>{
-
-    dispatch(moveX())
-  },10)
-   
-
+  if(x===100||x===-1) {
+    props.registerDispatch({type:'enemy/modXY', payload: {id: id, direction: [direction[0]*-1, direction[1]] } })
+  }
+  if(y===100||y===-1) {
+    props.registerDispatch({type:'enemy/modXY', payload: {id: id, direction: [direction[0], direction[1]*-1] } })
+  }  
+  props.registerDispatch({type:'enemy/move', payload: {id: id} })
 })
 
 
