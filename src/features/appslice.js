@@ -6,6 +6,8 @@ export const appSlice = createSlice({
     bullets: [],
     x: 20,
     y: 10,
+    rotation: 0,
+    test: ''
   },
   reducers: {
     doAct: (state, i) => {
@@ -47,8 +49,35 @@ export const appSlice = createSlice({
             state.x += state.x<99? 1 : 0
           break
           case 'input/shoot':
-            state.bullets.push({direction: [0,-1], location: [state.x,state.y], remove: false})
-          break          
+            let rot = state.rotation/5
+            let x, y
+            if (rot <= 18) {
+                x=.05555*rot
+                y=-1+Math.abs(x)
+            }
+            if (rot > 18 && rot <= 36) {
+                y= .05555*(rot-18)
+
+                x= 1-Math.abs(y)
+            }
+            if (rot > 36 && rot <= 54) {
+                x=-.05555*(rot-36)
+                y=1-Math.abs(x)
+            }
+            if (rot >= 54) {
+                y=-.05555*(rot-54)
+                x=-1+Math.abs(y)
+            }
+            console.log(x,y)
+            console.log(rot)
+            state.bullets.push({direction: [x,y], location: [state.x,state.y], remove: false})
+          break      
+          case 'input/rotRight':
+            state.rotation = state.rotation % 360 + 5
+          break    
+          case 'input/rotLeft':
+            state.rotation = state.rotation % 360 - 5
+          break              
         }
       })
       state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})

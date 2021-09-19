@@ -1,7 +1,11 @@
 #piece {
-  height:  2vh;
-  width: 2vh;
-  background-color: white;
+  width: 0; 
+  height: 0; 
+  border-left: 2vh solid transparent;
+  border-right: 2vh solid transparent;
+  border-bottom: 5vh solid black;
   position: absolute;
+  transform: translateX(-1vh);
+  color:  white;
 }
 

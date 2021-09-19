@@ -8,9 +8,8 @@ function Input(props) {
 
 
 const keyDown = (e) => {
-    console.log(e.keyCode)
-    if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(rotLeft()) }
-    if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(rotRight()) }
+    if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(rotLeft()); return }
+    if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(rotRight()); return }
     if(e.keyCode===13){ console.log(e.keyCode) }
     if(e.keyCode===32){ props.registerDispatch(shoot()) }
     if(e.keyCode===37){ props.registerDispatch(left()) }

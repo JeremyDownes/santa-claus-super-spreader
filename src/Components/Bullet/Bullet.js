@@ -17,7 +17,7 @@ let ystring = y+'vh'
 
 
 useEffect(() => {
-  if(x===-0||x===100||y===0||y===100) {
+  if(x<=0||x>=100||y<=0||y>=100) {
     props.registerDispatch({type:'bullet/die', payload: {id: id} })    
     return
   }

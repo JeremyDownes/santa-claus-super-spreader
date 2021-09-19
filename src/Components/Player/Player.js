@@ -7,6 +7,7 @@ function Player(props) {
 
 const x = useSelector((state) => state.app.x)
 const y = useSelector((state) => state.app.y)
+const rot = useSelector((state) => state.app.rotation)
 
 useEffect(()=>{
     
@@ -21,7 +22,7 @@ let ystring = y+'vh'
 
   return (
     <div id="player"  >
-        <div id='piece' style={{top: ystring, left: xstring}}></div>
+        <div id='piece' style={{top: ystring, left: xstring, transform: 'rotateZ('+rot+'deg)'}}></div>
     </div>
         
   );
