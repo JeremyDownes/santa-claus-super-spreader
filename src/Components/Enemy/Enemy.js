@@ -8,12 +8,18 @@ const id = props.id
 const x = useSelector((state) => state.app.enemies[id].location[0])
 const y = useSelector((state) => state.app.enemies[id].location[1])
 const player = useSelector((state) => state.app)
+const bullets = useSelector((state) => state.app.bullets)
 const direction = useSelector((state) => state.app.enemies[id].direction)
 const location = useSelector((state) => state.app.enemies[id].location)
 
 let xstring = x+'vh'
 let ystring = y+'vh'
 
+bullets.forEach((bullet)=>{
+  //if(bullet.location && (bullet.location[0]<=x+2 || bullet.location[0]>=x-2) && (bullet.location[1]<=y+2 || bullet.location[1]>=y-2) ) {alert()}
+  console.log(bullet.location)
+  console.log(x,y)
+})
 
 useEffect(() => {
   if(player.x===location[0]&&player.y===location[1]){

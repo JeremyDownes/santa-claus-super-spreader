@@ -8,12 +8,12 @@ function Input(props) {
 
 
 const keyDown = (e) => {
-    if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(rotLeft()); return }
-    if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(rotRight()); return }
-    if(e.keyCode===13){ console.log(e.keyCode) }
+    if(e.keyCode===37){ props.registerDispatch(rotLeft()); return }
+    if(e.keyCode===39){ props.registerDispatch(rotRight()); return }
+    //if(e.keyCode===13){ console.log(e.keyCode) }
     if(e.keyCode===32){ props.registerDispatch(shoot()) }
-    if(e.keyCode===37){ props.registerDispatch(left()) }
-    if(e.keyCode===39){ props.registerDispatch(right()) }  
+    if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(left()); return }
+    if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(right()); return }  
     if(e.keyCode===38){ props.registerDispatch(up()) } //up
     if(e.keyCode===40){ props.registerDispatch(down()) }  //down
   }

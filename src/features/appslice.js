@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { calculate2dRotation } from '../app/calculate2dRotation'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
@@ -13,6 +14,7 @@ export const appSlice = createSlice({
     doAct: (state, i) => {
       i.payload.forEach((action)=>{
         let id = null
+        let direction = []
         switch (action.type) {
           case 'enemy/move':
             id = action.payload.id
@@ -37,40 +39,35 @@ export const appSlice = createSlice({
             state.bullets[id].remove = true
           break                    
           case 'input/up':
-            state.y -= state.y>0 ? 1 : 0
+            direction = calculate2dRotation(state.rotation)
+            if ( state.x + direction[0] > 100 || state.x + direction[0] < 0 ) { return }
+            if ( state.y + direction[1] > 100 || state.y + direction[1] < 0 ) { return }
+            state.x += direction[0]
+            state.y += direction[1]
           break
           case 'input/down':
-            state.y += state.y<99? 1 : 0
+            direction = calculate2dRotation(state.rotation)
+            if ( state.x - direction[0] > 100 || state.x - direction[0] < 0 ) { return }
+            if ( state.y - direction[1] > 100 || state.y - direction[1] < 0 ) { return }
+            state.x -= direction[0]
+            state.y -= direction[1]
           break
           case 'input/left':
-            state.x -= state.x>0? 1 : 0
+            direction = calculate2dRotation(state.rotation)
+            if ( state.x - direction[1] > 100 || state.x - direction[1] < 0 ) { return }
+            if ( state.y - direction[0] > 100 || state.y - direction[0] < 0 ) { return }
+            state.x -= direction[1]
+            state.y -= direction[0]
           break
           case 'input/right':
-            state.x += state.x<99? 1 : 0
+            direction = calculate2dRotation(state.rotation)
+            if ( state.x + direction[1] > 100 || state.x + direction[1] < 0 ) { return }
+            if ( state.y + direction[0] > 100 || state.y + direction[0] < 0 ) { return }
+            state.x += direction[1]
+            state.y += direction[0]
           break
           case 'input/shoot':
-            let rot = state.rotation/5
-            let x, y
-            if (rot <= 18) {
-                x=.05555*rot
-                y=-1+Math.abs(x)
-            }
-            if (rot > 18 && rot <= 36) {
-                y= .05555*(rot-18)
-
-                x= 1-Math.abs(y)
-            }
-            if (rot > 36 && rot <= 54) {
-                x=-.05555*(rot-36)
-                y=1-Math.abs(x)
-            }
-            if (rot >= 54) {
-                y=-.05555*(rot-54)
-                x=-1+Math.abs(y)
-            }
-            console.log(x,y)
-            console.log(rot)
-            state.bullets.push({direction: [x,y], location: [state.x,state.y], remove: false})
+            state.bullets.push({direction: calculate2dRotation(state.rotation), location: [state.x,state.y], remove: false})
           break      
           case 'input/rotRight':
             state.rotation = state.rotation % 360 + 5
