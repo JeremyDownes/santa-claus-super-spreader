@@ -4,6 +4,7 @@ import Input from './Components/Input/Input'
 import Player from './Components/Player/Player'
 import Enemy from './Components/Enemy/Enemy'
 import Bullet from './Components/Bullet/Bullet'
+import Wall from './Components/Wall/Wall'
 import { doAct } from './features/appslice'
 import logo from './logo.svg';
 import './App.css';
@@ -36,7 +37,7 @@ useEffect(() => {
       <div id = 'gameboard'>
         <div id='fireplace'></div>
         <Player />
-        {walls.map((i)=><div style={{backgroundColor: "white", width: '1vh', height: '1vh', position: 'absolute', top: i.location[1]+'vh', left: i.location[0]+'vh'}}></div>)}
+        {walls.map((i)=><Wall key={key++} color={i.color} location={i.location} />)}
         {bullets.map((i)=><Bullet key={key++} id={bid++} position={i.position} registerDispatch={registerDispatch}  />)}
         {enemies.map((i)=><Enemy type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />)}
       </div>

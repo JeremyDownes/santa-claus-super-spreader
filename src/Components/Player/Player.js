@@ -22,7 +22,7 @@ let ystring = y+'vh'
 
   return (
     <div id="player"  >
-        <div id='piece' style={{top: ystring, left: xstring, transform: 'translateX(-7vh) translateY(-7vh) rotateZ('+rot+'deg)'}}></div>
+        <div id='piece' style={{top: ystring, left: xstring, transform: 'translateX(-7vh) translateY(-6vh) rotateZ('+rot+'deg)', zIndex: Math.floor(y)}}></div>
     </div>
         
   );
