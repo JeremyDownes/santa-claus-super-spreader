@@ -21,5 +21,6 @@
   width: 100vh;
   height: 100vh;
   position: relative;
+  background-image: url('./resources/images/floor.jpg');
   background-color: #FFFFFF05;
 }

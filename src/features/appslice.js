@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { calculate2dRotation } from '../app/calculate2dRotation'
+import { walls } from '../collections/walls'
+
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    enemies: [{type: 'box', direction: [1,0], location: [0,0]},{tyoe: 'box', direction: [1,0], location: [20,20]}],
+    enemies: [{type: 'box', direction: [1,0], location: [0,0]},{type: 'box', direction: [1,0], location: [20,20]}],
+    walls: walls,
     bullets: [],
     x: 20,
     y: 10,
@@ -44,6 +47,12 @@ export const appSlice = createSlice({
             if ( state.y + direction[1] > 100 || state.y + direction[1] < 0 ) { return }
             state.x += direction[0]
             state.y += direction[1]
+            walls.forEach((wall)=>{ 
+              if(wall.location[0]===Math.floor(state.x)&&wall.location[1]===Math.floor(state.y)){
+                state.x -= direction[0]
+                state.y -= direction[1]
+              } 
+            })
           break
           case 'input/down':
             direction = calculate2dRotation(state.rotation)
@@ -51,6 +60,12 @@ export const appSlice = createSlice({
             if ( state.y - direction[1] > 100 || state.y - direction[1] < 0 ) { return }
             state.x -= direction[0]
             state.y -= direction[1]
+            walls.forEach((wall)=>{ 
+              if(wall.location[0]===Math.floor(state.x)&&wall.location[1]===Math.floor(state.y)){
+                state.x += direction[0]
+                state.y += direction[1]
+              } 
+            })
           break
           case 'input/left':
             direction = calculate2dRotation(state.rotation)

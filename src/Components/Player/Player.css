@@ -1,11 +1,12 @@
 #piece {
-  width: 0; 
-  height: 0; 
-  border-left: 2vh solid transparent;
-  border-right: 2vh solid transparent;
-  border-bottom: 5vh solid black;
+  width: 14vh; 
+  height: 14vh; 
   position: absolute;
-  transform: translateX(-1vh);
-  color:  white;
+  
+  background-image: url(../../resources/images/santa.gif);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
 }
 

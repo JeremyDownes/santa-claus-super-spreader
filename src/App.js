@@ -12,6 +12,7 @@ function App() {
 const dispatch = useDispatch()
 const enemies = useSelector((state) => state.app.enemies)  
 const bullets = useSelector((state) => state.app.bullets)  
+const walls = useSelector((state) => state.app.walls)  
 let events = []
 let eid = 0
 let bid = 0
@@ -33,7 +34,9 @@ useEffect(() => {
   return (
     <div className="App"> 
       <div id = 'gameboard'>
+        <div id='fireplace'></div>
         <Player />
+        {walls.map((i)=><div style={{backgroundColor: "white", width: '1vh', height: '1vh', position: 'absolute', top: i.location[1]+'vh', left: i.location[0]+'vh'}}></div>)}
         {bullets.map((i)=><Bullet key={key++} id={bid++} position={i.position} registerDispatch={registerDispatch}  />)}
         {enemies.map((i)=><Enemy type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />)}
       </div>
