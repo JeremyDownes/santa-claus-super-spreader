@@ -46,7 +46,6 @@ const keyDown = (e) => {
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
         dispatchesCopy.push(down()) 
     }  //down
-    console.log(dispatchesCopy)
     setDispatches(dispatchesCopy);
   }
 
