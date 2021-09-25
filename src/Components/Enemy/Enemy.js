@@ -14,11 +14,12 @@ const location = useSelector((state) => state.app.enemies[id].location)
 
 let xstring = x+'vh'
 let ystring = y+'vh'
+let color = 'red'
 
-bullets.forEach((bullet)=>{
-  //if(bullet.location && (bullet.location[0]<=x+2 || bullet.location[0]>=x-2) && (bullet.location[1]<=y+2 || bullet.location[1]>=y-2) ) {alert()}
-  console.log(bullet.location)
-  console.log(x,y)
+bullets.forEach((bullet,i)=>{
+  if(bullet.location && (bullet.location[0]<=x+2 && bullet.location[0]>=x-2) && (bullet.location[1]<=y+2 && bullet.location[1]>=y-2) ) {
+    color = 'green'
+  }
 })
 
 useEffect(() => {
@@ -34,11 +35,8 @@ useEffect(() => {
   props.registerDispatch({type:'enemy/move', payload: {id: id} })
 })
 
-
-
-
   return (
-    <div className='enemy' style={{top: ystring, left: xstring}} > </div>
+    <div className='enemy' style={{top: ystring, left: xstring, backgroundColor: color}} > </div>
         
   );
 }

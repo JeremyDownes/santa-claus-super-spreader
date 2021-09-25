@@ -74,6 +74,7 @@ export const appSlice = createSlice({
           break    
           case 'input/rotLeft':
             state.rotation = state.rotation % 360 - 5
+            if (state.rotation === -5) {state.rotation=355}
           break              
         }
       })
