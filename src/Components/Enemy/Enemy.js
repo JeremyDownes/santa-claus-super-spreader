@@ -23,7 +23,7 @@ bullets.forEach((bullet,i)=>{
 })
 
 useEffect(() => {
-  if(player.x===location[0]&&player.y===location[1]){
+  if(Math.floor(player.x)===location[0]&&Math.floor(player.y)===location[1]){
     props.registerDispatch({type:'enemy/modXY', payload: {id: id, direction: [direction[0]*-1, direction[1]] } })
   }
   if(x===100||x===-1) {

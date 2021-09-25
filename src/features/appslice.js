@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { calculate2dRotation } from '../app/calculate2dRotation'
 import { walls } from '../collections/walls'
+import { obstacles } from '../collections/obstacles'
 
 export const appSlice = createSlice({
   name: 'app',
@@ -8,6 +9,7 @@ export const appSlice = createSlice({
     enemies: [{type: 'box', direction: [1,0], location: [0,0]},{type: 'box', direction: [1,0], location: [20,20]}],
     walls: walls,
     bullets: [],
+    obstacles: obstacles,
     x: 20,
     y: 10,
     rotation: 0,
@@ -51,7 +53,13 @@ export const appSlice = createSlice({
               if(wall.location[0]===Math.floor(state.x)&&wall.location[1]===Math.floor(state.y)){
                 state.x -= direction[0]
                 state.y -= direction[1]
-              } 
+              }
+            })
+            obstacles.forEach((obstacle)=>{
+              if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
+                state.x -= direction[0]
+                state.y -= direction[1]                
+              }
             })
           break
           case 'input/down':
@@ -66,6 +74,12 @@ export const appSlice = createSlice({
                 state.y += direction[1]
               } 
             })
+            obstacles.forEach((obstacle)=>{
+              if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
+                state.x += direction[0]
+                state.y += direction[1]                
+              }
+            })            
           break
           case 'input/left':
             direction = calculate2dRotation(state.rotation)

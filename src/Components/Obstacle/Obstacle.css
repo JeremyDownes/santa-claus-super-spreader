@@ -1,0 +1,12 @@
+.obstacle {
+  width: 1vh; 
+  height: 6vh; 
+  position: absolute;
+}
+
+.fireplace {
+  background-image: url('../../resources/images/fireplace.gif');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
