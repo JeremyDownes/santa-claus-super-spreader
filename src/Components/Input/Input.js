@@ -6,25 +6,51 @@ import { left, right, up, down, shoot, rotLeft, rotRight } from '../../features/
 
 function Input(props) {
 
+    const [dispatches,setDispatches] = useState([])
+    let dispatchesCopy
+
+useEffect(()=>{
+    dispatches.forEach((dispatch)=>{
+        props.registerDispatch(dispatch)
+    })
+
+})
+
 
 const keyDown = (e) => {
-    if(e.keyCode===37){ props.registerDispatch(rotLeft()); return }
-    if(e.keyCode===39){ props.registerDispatch(rotRight()); return }
+    dispatchesCopy=dispatches.slice()
+    if(e.keyCode===37){ 
+        dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==rotRight()})
+        dispatchesCopy.push(rotLeft())
+    }
+    if(e.keyCode===39){
+        dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==rotRight()})
+        dispatchesCopy.push(rotRight())
+    }
     //if(e.keyCode===13){ console.log(e.keyCode) }
-    if(e.keyCode===32){ props.registerDispatch(shoot()) }
-    if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(left()); return }
-    if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(right()); return }  
-    if(e.keyCode===38){ props.registerDispatch(up()) } //up
-    if(e.keyCode===40){ props.registerDispatch(down()) }  //down
+    if(e.keyCode===32){ 
+        dispatchesCopy.push(shoot()) 
+    }
+    //if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(left()); return }
+    //if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(right()); return }  
+    if(e.keyCode===38){
+        dispatchesCopy.push(up()) 
+    } //up
+    if(e.keyCode===40){ 
+        dispatchesCopy.push(down()) 
+    }  //down
+    setDispatches(dispatchesCopy);
   }
 
 const keyUp = (e) => {
+    dispatchesCopy=dispatches.slice()
     if(e.keyCode===13){ }
-    if(e.keyCode===32){ }
-    if(e.keyCode===39) {  }
-    if(e.keyCode===37) {  }
-    if(e.keyCode===38){ } //up
-    if(e.keyCode===40){ }  //down
+    if(e.keyCode===32){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==shoot()}) }
+    if(e.keyCode===39) { dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==rotLeft()}) }
+    if(e.keyCode===37) { dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==rotRight()}) }
+    if(e.keyCode===38){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==up()}) } //up
+    if(e.keyCode===40){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c!==down()}) }  //down
+    setDispatches(dispatchesCopy);        
   }  
 
 
