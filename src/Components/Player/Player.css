@@ -2,11 +2,9 @@
   width: 14vh; 
   height: 14vh; 
   position: absolute;
-  
-  background-image: url(../../resources/images/santa.gif);
+  transform: translateX(-7vh) translateY(-6vh);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-
 }
 
