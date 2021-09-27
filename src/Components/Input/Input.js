@@ -40,23 +40,28 @@ const keyDown = (e) => {
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
         dispatchesCopy.push(up()) 
+        dispatchesCopy.push({type: 'input/animatePlayer', payload: true})
     } //up
     if(e.keyCode===40){ 
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
         dispatchesCopy.push(down()) 
+        dispatchesCopy.push({type: 'input/animatePlayer', payload: true})
     }  //down
     setDispatches(dispatchesCopy);
   }
 
 const keyUp = (e) => {
     dispatchesCopy=dispatches.slice()
+    dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/animatePlayer'}) 
     if(e.keyCode===13){ }
     if(e.keyCode===32){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/shoot'}) }
     if(e.keyCode===39) { dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/rotRight'}) }
     if(e.keyCode===37) { dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/rotLeft'}) }
     if(e.keyCode===38){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'}) } //up
     if(e.keyCode===40){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'}) }  //down
+    console.log(dispatchesCopy)        
+    if(dispatchesCopy.length===0) { dispatchesCopy.push({type: 'input/animatePlayer', payload: false})}
     setDispatches(dispatchesCopy);        
   }  
 

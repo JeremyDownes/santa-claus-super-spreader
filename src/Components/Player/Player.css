@@ -8,6 +8,32 @@
   background-repeat: no-repeat;
 }
 
+.stand-forward {
+ background-image: url('../../resources/images/stand-front.gif');
+}
+.stand-forwardLeft{
+ background-image: url('../../resources/images/stand-front-left.gif');
+}
+.stand-forwardRight{
+ background-image: url('../../resources/images/stand-front-right.gif');
+}
+.stand-back {
+ background-image: url('../../resources/images/stand-back.gif');
+}
+.stand-backRight {
+ background-image: url('../../resources/images/stand-back-right.gif');
+}
+.stand-backLeft {
+ background-image: url('../../resources/images/stand-back-left.gif');
+}
+.stand-left{
+ background-image: url('../../resources/images/stand-left.gif');
+}
+.stand-right{
+ background-image: url('../../resources/images/stand-right.gif');
+}
+
+
 .forward {
  background-image: url('../../resources/images/santaforward.gif');
 }

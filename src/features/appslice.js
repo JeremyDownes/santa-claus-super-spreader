@@ -13,7 +13,8 @@ export const appSlice = createSlice({
     x: 20,
     y: 10,
     rotation: 0,
-    test: ''
+    test: '',
+    isMoving: false
   },
   reducers: {
     doAct: (state, i) => {
@@ -105,6 +106,9 @@ export const appSlice = createSlice({
             state.rotation = state.rotation % 360 - 5
             if (state.rotation === -5) {state.rotation=355}
           break              
+          case 'input/animatePlayer':
+            state.isMoving=action.payload
+          break
         }
       })
       state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})
