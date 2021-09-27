@@ -1,12 +1,31 @@
 .obstacle {
-  width: 1vh; 
-  height: 6vh; 
   position: absolute;
+  border: 1px dotted;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.reverse {
+  transform: rotateY(180deg);
 }
 
 .fireplace {
   background-image: url('../../resources/images/fireplace.gif');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+}
+
+.gray-couch-right {
+  background-image: url('../../resources/images/gray-couch-right.png');
+}
+
+.blue-chair-back-angle {
+  background-image: url('../../resources/images/blue-chair-back-angle.png');
+}
+
+.small-table-front {
+  background-image: url('../../resources/images/small-table-front.png');  
+}
+
+.desk-back {
+  background-image: url('../../resources/images/desk-back.png');  
 }
