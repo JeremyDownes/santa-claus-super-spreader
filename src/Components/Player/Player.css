@@ -8,3 +8,27 @@
   background-repeat: no-repeat;
 }
 
+.forward {
+ background-image: url('../../resources/images/santaforward.gif');
+}
+.forwardLeft{
+ background-image: url('../../resources/images/santaforwardleft.gif');
+}
+.forwardRight{
+ background-image: url('../../resources/images/santaforwardright.gif');
+}
+.back {
+ background-image: url('../../resources/images/santaback.gif');
+}
+.backRight {
+ background-image: url('../../resources/images/santabackright.gif');
+}
+.backLeft {
+ background-image: url('../../resources/images/santabackleft.gif');
+}
+.left{
+ background-image: url('../../resources/images/santaleft.gif');
+}
+.right{
+ background-image: url('../../resources/images/santaright.gif');
+}
