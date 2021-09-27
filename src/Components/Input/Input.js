@@ -60,7 +60,6 @@ const keyUp = (e) => {
     if(e.keyCode===37) { dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/rotLeft'}) }
     if(e.keyCode===38){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'}) } //up
     if(e.keyCode===40){ dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'}) }  //down
-    console.log(dispatchesCopy)        
     if(dispatchesCopy.length===0) { dispatchesCopy.push({type: 'input/animatePlayer', payload: false})}
     setDispatches(dispatchesCopy);        
   }  

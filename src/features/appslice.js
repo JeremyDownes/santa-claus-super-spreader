@@ -6,7 +6,7 @@ import { obstacles } from '../collections/obstacles'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    enemies: [{type: 'box', direction: [1,0], location: [0,0]},{type: 'box', direction: [1,0], location: [20,20]}],
+    enemies: [{type: 'box', startLocation: [1,1], location: [1,1], rotation: 90},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90}],
     walls: walls,
     bullets: [],
     obstacles: obstacles,
@@ -21,17 +21,20 @@ export const appSlice = createSlice({
       i.payload.forEach((action)=>{
         let id = null
         let direction = []
+        let eDirection
         switch (action.type) {
           case 'enemy/move':
             id = action.payload.id
-            state.enemies[id].location[0] += .25*state.enemies[id].direction[0]
-            state.enemies[id].location[1] += .25*state.enemies[id].direction[1]
+            eDirection = calculate2dRotation(state.enemies[id].rotation)
+            state.enemies[id].location[0] += .25*eDirection[0]
+            state.enemies[id].location[1] += .25*eDirection[1]
+            if(state.enemies[id].location[1]<-1||state.enemies[id].location[0]<-1 || state.enemies[id].location[1]>100 || state.enemies[id].location[0]>100 ) { state.enemies[id].location = state.enemies[id].startLocation }
           break
           case 'enemy/modXY':
             id = action.payload.id
-            state.enemies[id].direction = action.payload.direction
-            state.enemies[id].location[0] += .25*state.enemies[id].direction[0]
-            state.enemies[id].location[1] += .25*state.enemies[id].direction[1]
+            state.enemies[id].rotation += Math.random()*360
+            state.enemies[id].rotation %= 360
+            eDirection = calculate2dRotation(state.enemies[id].rotation)
           break
           case 'bullet/move':
             id = action.payload.id
