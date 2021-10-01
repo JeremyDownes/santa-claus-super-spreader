@@ -39,12 +39,14 @@ const keyDown = (e) => {
     if(e.keyCode===38){
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
+        dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/animatePlayer'})        
         dispatchesCopy.push(up()) 
         dispatchesCopy.push({type: 'input/animatePlayer', payload: true})
     } //up
     if(e.keyCode===40){ 
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
+        dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/animatePlayer'})      
         dispatchesCopy.push(down()) 
         dispatchesCopy.push({type: 'input/animatePlayer', payload: true})
     }  //down
