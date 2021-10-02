@@ -6,11 +6,11 @@ import { obstacles } from '../collections/obstacles'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    enemies: [{type: 'box', startLocation: [1,1], location: [1,1], rotation: 90, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90, color: 'red', viralLoad: 0}],
+    enemies: [{type: 'box', startLocation: [10,10], location: [10,10], rotation: 90, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90, color: 'red', viralLoad: 0}],
     walls: walls,
     bullets: [],
     obstacles: obstacles,
-    x: 20,
+    x: 50,
     y: 10,
     rotation: 0,
     test: '',
@@ -142,7 +142,14 @@ export const appSlice = createSlice({
           break
           case 'player/infect':
             id = action.payload.id
-            state.enemies[id].viralLoad+=state.viralLoad*.01
+            state.enemies[id].viralLoad+=state.viralLoad*.001
+            state.enemies[id].viralLoad=(state.enemies[id].viralLoad*1000)/1000
+          break   
+          case 'co/infect':
+            id = action.payload.id
+            let multiplier = action.payload.multiplier
+            state.enemies[id].viralLoad+=multiplier*.001
+            state.enemies[id].viralLoad=(state.enemies[id].viralLoad*1000)/1000
           break          
         }
       })

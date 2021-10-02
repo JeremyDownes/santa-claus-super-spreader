@@ -16,6 +16,8 @@ const rotation = useSelector((state) => state.app.enemies[id].rotation)
 const location = useSelector((state) => state.app.enemies[id].location)
 const color = useSelector((state) => state.app.enemies[id].color)
 const viralLoad = useSelector((state) => state.app.enemies[id].viralLoad)
+const enemies = useSelector((state) => state.app.enemies)
+
 
 const calculateFOV = ()=>{
   let fov = calculate2dRotation(rotation)
@@ -56,6 +58,10 @@ bullets.forEach((bullet,i)=>{
     props.registerDispatch({type:'enemy/green', payload: {id: id } })
   }
 })
+
+  enemies.forEach((enemy,i)=>{
+    if(i!=id&&(enemy.location[0]>x-15&&enemy.location[0]<x+15)&&(enemy.location[1]>y-12&&enemy.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, multiplier: viralLoad } })}    
+  })
 
 
  useEffect(() => {
