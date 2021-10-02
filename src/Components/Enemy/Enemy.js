@@ -14,7 +14,8 @@ const walls = useSelector((state) => state.app.walls)
 const obstacles = useSelector((state) => state.app.obstacles)
 const rotation = useSelector((state) => state.app.enemies[id].rotation)
 const location = useSelector((state) => state.app.enemies[id].location)
-let color = 'red'
+const color = useSelector((state) => state.app.enemies[id].color)
+
 const calculateFOV = ()=>{
   let fov = calculate2dRotation(rotation)
   let field = []
@@ -36,7 +37,7 @@ const calculateFOV = ()=>{
     if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]-fov[1]*.33)) {inY=true} 
   }
   if(inX&&inY) {
-    console.log("I see you!")
+    props.registerDispatch({type:'enemy/green', payload: {id: id } })
   }
 
 }
@@ -48,7 +49,7 @@ let z = Math.floor(y)
 
 bullets.forEach((bullet,i)=>{
   if(bullet.location && (bullet.location[0]<=x+2 && bullet.location[0]>=x-2) && (bullet.location[1]<=y+2 && bullet.location[1]>=y-2) ) {
-    color = 'green'
+    props.registerDispatch({type:'enemy/green', payload: {id: id } })
   }
 })
 

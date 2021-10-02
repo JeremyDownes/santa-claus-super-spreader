@@ -6,7 +6,7 @@ import { obstacles } from '../collections/obstacles'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    enemies: [{type: 'box', startLocation: [1,1], location: [1,1], rotation: 90},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90}],
+    enemies: [{type: 'box', startLocation: [1,1], location: [1,1], rotation: 90, color: 'red'},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90, color: 'red'}],
     walls: walls,
     bullets: [],
     obstacles: obstacles,
@@ -18,11 +18,16 @@ export const appSlice = createSlice({
   },
   reducers: {
     doAct: (state, i) => {
+      state.enemies.forEach((enemy)=>{enemy.color='red'})
       i.payload.forEach((action)=>{
         let id = null
         let direction = []
         let eDirection
         switch (action.type) {
+          case 'enemy/green':
+            id = action.payload.id
+            state.enemies[id].color='green'
+          break
           case 'enemy/move':
             id = action.payload.id
             eDirection = calculate2dRotation(state.enemies[id].rotation)
