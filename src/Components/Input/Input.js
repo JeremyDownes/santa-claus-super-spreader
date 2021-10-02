@@ -36,14 +36,14 @@ const keyDown = (e) => {
     }
     //if(e.keyCode===37&&e.ctrlKey){ props.registerDispatch(left()); return }
     //if(e.keyCode===39&&e.ctrlKey){ props.registerDispatch(right()); return }  
-    if(e.keyCode===38){
+    if(e.keyCode===38){//up
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/animatePlayer'})        
         dispatchesCopy.push(up()) 
         dispatchesCopy.push({type: 'input/animatePlayer', payload: true})
     } //up
-    if(e.keyCode===40){ 
+    if(e.keyCode===40){  //down
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/up'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/down'})
         dispatchesCopy = dispatchesCopy.filter((c)=>{return c.type!=='input/animatePlayer'})      

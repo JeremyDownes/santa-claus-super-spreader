@@ -15,31 +15,35 @@ const obstacles = useSelector((state) => state.app.obstacles)
 const rotation = useSelector((state) => state.app.enemies[id].rotation)
 const location = useSelector((state) => state.app.enemies[id].location)
 const color = useSelector((state) => state.app.enemies[id].color)
+const viralLoad = useSelector((state) => state.app.enemies[id].viralLoad)
 
 const calculateFOV = ()=>{
   let fov = calculate2dRotation(rotation)
   let field = []
   let inX, inY
   if(fov[0]>=0) {
-    if (player.x>=location[0]&&player.x<=location[0]+30*(fov[0]+fov[0]*.33)) {inX=true} 
-    if (player.x>=location[0]&&player.x<=location[0]+30*(fov[0]-fov[0]*.33)) {inX=true}       
+    if (player.x>=location[0]&&player.x<=location[0]+30*(fov[0]+fov[0]*.45)) {inX=true} 
+    if (player.x>=location[0]&&player.x<=location[0]+30*(fov[0]-fov[0]*.45)) {inX=true}       
   }
   if(fov[0]<0) {
-    if (player.x<=location[0]&&player.x>=location[0]+30*(fov[0]+fov[0]*.33)) {inX=true} 
-    if (player.x<=location[0]&&player.x>=location[0]+30*(fov[0]-fov[0]*.33)) {inX=true} 
+    if (player.x<=location[0]&&player.x>=location[0]+30*(fov[0]+fov[0]*.45)) {inX=true} 
+    if (player.x<=location[0]&&player.x>=location[0]+30*(fov[0]-fov[0]*.45)) {inX=true} 
   }
   if(fov[1]>=0) {
-    if (player.y>=location[1]&&player.y<=location[1]+30*(fov[1]+fov[1]*.33)) {inY=true} 
-    if (player.y>=location[1]&&player.y<=location[1]+30*(fov[1]-fov[1]*.33)) {inY=true} 
+    if (player.y>=location[1]&&player.y<=location[1]+30*(fov[1]+fov[1]*.45)) {inY=true} 
+    if (player.y>=location[1]&&player.y<=location[1]+30*(fov[1]-fov[1]*.45)) {inY=true} 
   }
   if(fov[1]<0) {
-    if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]+fov[1]*.33)) {inY=true} 
-    if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]-fov[1]*.33)) {inY=true} 
+    if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]+fov[1]*.45)) {inY=true} 
+    if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]-fov[1]*.45)) {inY=true} 
   }
   if(inX&&inY) {
     props.registerDispatch({type:'enemy/green', payload: {id: id } })
   }
+}
 
+const infect = ()=>{
+  if((player.x>x-15&&player.x<x+15)&&(player.y>y-12&&player.y<y+12)){props.registerDispatch({type:'enemy/infect', payload: {id: id } })}
 }
 
 
@@ -56,6 +60,7 @@ bullets.forEach((bullet,i)=>{
 
  useEffect(() => {
   calculateFOV()
+  infect()
   let turn
   walls.forEach((wall)=>{ 
   if(wall.location[0]===Math.floor(x)&&wall.location[1]===Math.floor(y)){
@@ -85,7 +90,7 @@ bullets.forEach((bullet,i)=>{
 })
 
   return (
-    <div className='enemy' style={{top: ystring, left: xstring, backgroundColor: color, zIndex: z, transform: 'rotateZ('+rotation+'deg)'}} > </div>
+    <div className='enemy' style={{top: ystring, left: xstring, backgroundColor: color, zIndex: z, transform: 'rotateZ('+rotation+'deg)'}} > {viralLoad} </div>
         
   );
 }

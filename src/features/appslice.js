@@ -6,7 +6,7 @@ import { obstacles } from '../collections/obstacles'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    enemies: [{type: 'box', startLocation: [1,1], location: [1,1], rotation: 90, color: 'red'},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90, color: 'red'}],
+    enemies: [{type: 'box', startLocation: [1,1], location: [1,1], rotation: 90, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90, color: 'red', viralLoad: 0}],
     walls: walls,
     bullets: [],
     obstacles: obstacles,
@@ -14,13 +14,16 @@ export const appSlice = createSlice({
     y: 10,
     rotation: 0,
     test: '',
-    isMoving: false
+    isMoving: false,
+    viralLoad: 0
   },
   reducers: {
     doAct: (state, i) => {
       //enemy state reset
       state.enemies.forEach((enemy)=>{enemy.color='red'})
-      //
+      // tick down virus
+      if(state.viralLoad>=0){state.viralLoad-=.3}
+      state.viralLoad = Math.round(state.viralLoad*100)/100
       let playerHasMoved = false
       i.payload.forEach((action)=>{
         let id = null
@@ -31,6 +34,11 @@ export const appSlice = createSlice({
             id = action.payload.id
             state.enemies[id].color='green'
           break
+          case 'enemy/infect':
+            id = action.payload.id
+            state.viralLoad+=state.enemies[id].viralLoad*.01
+            state.enemies[id].color='green'
+          break          
           case 'enemy/move':
             id = action.payload.id
             eDirection = calculate2dRotation(state.enemies[id].rotation)

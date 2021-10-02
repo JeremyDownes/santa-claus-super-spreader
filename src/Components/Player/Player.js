@@ -6,6 +6,7 @@ function Player(props) {
 
 const x = useSelector((state) => state.app.x)
 const y = useSelector((state) => state.app.y)
+const viralLoad = useSelector((state) => state.app.viralLoad)
 const rotation = useSelector((state) => state.app.rotation)
 const isMoving = useSelector((state) => state.app.isMoving)
 let bgclass
@@ -21,7 +22,7 @@ let bgclass
   if (rotation>292&&rotation<=338) {bgclass='stand-backLeft'}   
 
 if(isMoving) {
-  
+
   if (rotation>338||rotation<=22) {bgclass='back'}
   if (rotation>22&&rotation<=67) {bgclass='backRight'}
   if (rotation>67&&rotation<=112) {bgclass='left'}
@@ -38,7 +39,7 @@ let ystring = y+'vh'
 
   return (
     <div id="player"  >
-        <div id='piece' className={bgclass} style={{top: ystring, left: xstring, zIndex: Math.floor(y)}}></div>
+        <div id='piece' className={bgclass} style={{top: ystring, left: xstring, zIndex: Math.floor(y)}}>{viralLoad}</div>
     </div>
         
   );
