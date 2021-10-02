@@ -45,7 +45,7 @@ useEffect(() => {
   return (
     <div className="App"> 
       <div id = 'gameboard'>
-        <Player image={image}/>
+        <Player registerDispatch={registerDispatch}/>
         {walls.map((i)=><Wall key={key++} color={i.color} location={i.location} />)}
         {obstacles.map((i)=><Obstacle key={key++} type={i.type} height={i.height} width={i.width} location={i.location} />)}
         {bullets.map((i)=><Bullet key={key++} id={bid++} position={i.position} registerDispatch={registerDispatch}  />)}

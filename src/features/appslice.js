@@ -20,9 +20,13 @@ export const appSlice = createSlice({
   reducers: {
     doAct: (state, i) => {
       //enemy state reset
-      state.enemies.forEach((enemy)=>{enemy.color='red'})
+      state.enemies.forEach((enemy)=>{
+        enemy.color='red'
+        if(enemy.viralLoad>0){enemy.viralLoad-=.01}else{enemy.viralLoad=0}
+        enemy.viralLoad = Math.round(enemy.viralLoad*100)/100
+      })
       // tick down virus
-      if(state.viralLoad>=0){state.viralLoad-=.3}
+      if(state.viralLoad>0){state.viralLoad-=.03}else{state.viralLoad=0}
       state.viralLoad = Math.round(state.viralLoad*100)/100
       let playerHasMoved = false
       i.payload.forEach((action)=>{
@@ -136,6 +140,10 @@ export const appSlice = createSlice({
           case 'input/animatePlayer':
             state.isMoving=action.payload
           break
+          case 'player/infect':
+            id = action.payload.id
+            state.enemies[id].viralLoad+=state.viralLoad*.01
+          break          
         }
       })
       state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})

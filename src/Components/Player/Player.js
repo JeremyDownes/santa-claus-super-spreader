@@ -9,8 +9,12 @@ const y = useSelector((state) => state.app.y)
 const viralLoad = useSelector((state) => state.app.viralLoad)
 const rotation = useSelector((state) => state.app.rotation)
 const isMoving = useSelector((state) => state.app.isMoving)
+const enemies = useSelector((state) => state.app.enemies)
 let bgclass
 
+  enemies.forEach((enemy,i)=>{
+    if((enemy.location[0]>x-15&&enemy.location[0]<x+15)&&(enemy.location[1]>y-12&&enemy.location[1]<y+12)){props.registerDispatch({type:'player/infect', payload: {id: i } })}    
+  })
 
   if (rotation>338||rotation<=22) {bgclass='stand-back'}
   if (rotation>22&&rotation<=67) {bgclass='stand-backRight'}
