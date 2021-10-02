@@ -18,7 +18,10 @@ export const appSlice = createSlice({
   },
   reducers: {
     doAct: (state, i) => {
+      //enemy state reset
       state.enemies.forEach((enemy)=>{enemy.color='red'})
+      //
+      let playerHasMoved = false
       i.payload.forEach((action)=>{
         let id = null
         let direction = []
@@ -57,6 +60,7 @@ export const appSlice = createSlice({
             state.bullets[id].remove = true
           break                    
           case 'input/up':
+            if(playerHasMoved){return}
             direction = calculate2dRotation(state.rotation)
             if ( state.x + direction[0] > 100 || state.x + direction[0] < 0 ) { return }
             if ( state.y + direction[1] > 100 || state.y + direction[1] < 0 ) { return }
@@ -74,8 +78,10 @@ export const appSlice = createSlice({
                 state.y -= direction[1]                
               }
             })
+            playerHasMoved=true
           break
           case 'input/down':
+            if(playerHasMoved){return}
             direction = calculate2dRotation(state.rotation)
             if ( state.x - direction[0] > 100 || state.x - direction[0] < 0 ) { return }
             if ( state.y - direction[1] > 100 || state.y - direction[1] < 0 ) { return }
@@ -93,6 +99,7 @@ export const appSlice = createSlice({
                 state.y += direction[1]                
               }
             })            
+            playerHasMoved=true
           break
           case 'input/left':
             direction = calculate2dRotation(state.rotation)
