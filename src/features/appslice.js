@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { calculate2dRotation } from '../app/calculate2dRotation'
+import { isWallBetween } from '../app/isWallBetween'
 import { walls } from '../collections/walls'
 import { obstacles } from '../collections/obstacles'
 
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    enemies: [{type: 'box', startLocation: [10,10], location: [10,10], rotation: 90, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [20,20], rotation: 90, color: 'red', viralLoad: 0}],
+    enemies: [{type: 'box', startLocation: [10,10], location: [10,10], rotation: 180, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [10,40], rotation: 0, color: 'red', viralLoad: 0}],
     walls: walls,
     bullets: [],
     obstacles: obstacles,
@@ -28,6 +29,7 @@ export const appSlice = createSlice({
       // tick down virus
       if(state.viralLoad>0){state.viralLoad-=.03}else{state.viralLoad=0}
       state.viralLoad = Math.round(state.viralLoad*100)/100
+
       let playerHasMoved = false
       i.payload.forEach((action)=>{
         let id = null
@@ -40,6 +42,7 @@ export const appSlice = createSlice({
           break
           case 'enemy/infect':
             id = action.payload.id
+            if(isWallBetween(state.walls,state.enemies[id].location,[state.x,state.y])) {return}
             state.viralLoad+=state.enemies[id].viralLoad*.01
             state.enemies[id].color='green'
           break          
@@ -142,12 +145,15 @@ export const appSlice = createSlice({
           break
           case 'player/infect':
             id = action.payload.id
+            if(isWallBetween(state.walls,state.enemies[id].location,[state.x,state.y])) {return}
             state.enemies[id].viralLoad+=state.viralLoad*.001
             state.enemies[id].viralLoad=(state.enemies[id].viralLoad*1000)/1000
           break   
           case 'co/infect':
             id = action.payload.id
-            let multiplier = action.payload.multiplier
+            let myId = action.payload.myId
+            let multiplier = state.enemies[myId].viralLoad
+            if(isWallBetween(state.walls,state.enemies[id].location,state.enemies[myId].location)) {return}
             state.enemies[id].viralLoad+=multiplier*.001
             state.enemies[id].viralLoad=(state.enemies[id].viralLoad*1000)/1000
           break          

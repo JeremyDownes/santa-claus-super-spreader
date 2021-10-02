@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import './Enemy.css';
 import {calculate2dRotation} from '../../app/calculate2dRotation'
-
+import { isWallBetween } from '../../app/isWallBetween'
 
 function Enemy(props) {
 const id = props.id
@@ -21,6 +21,7 @@ const enemies = useSelector((state) => state.app.enemies)
 
 const calculateFOV = ()=>{
   let fov = calculate2dRotation(rotation)
+  if(isWallBetween(walls,[x,y],[player.x,player.y])) {return}
   let field = []
   let inX, inY
   if(fov[0]>=0) {
@@ -60,7 +61,7 @@ bullets.forEach((bullet,i)=>{
 })
 
   enemies.forEach((enemy,i)=>{
-    if(i!=id&&(enemy.location[0]>x-15&&enemy.location[0]<x+15)&&(enemy.location[1]>y-12&&enemy.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, multiplier: viralLoad } })}    
+    if(i!=id&&(enemy.location[0]>x-15&&enemy.location[0]<x+15)&&(enemy.location[1]>y-12&&enemy.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, myId: id } })}    
   })
 
 
