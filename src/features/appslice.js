@@ -32,7 +32,11 @@ export const appSlice = createSlice({
           break
           case 'enemy/modXY':
             id = action.payload.id
-            state.enemies[id].rotation += Math.random()*360
+            let rando = Math.random()*33
+            let sign = Math.random() < 0.5 ? -1 : 1;
+            rando *= sign
+            state.enemies[id].rotation += 180
+            state.enemies[id].rotation += rando
             state.enemies[id].rotation %= 360
             eDirection = calculate2dRotation(state.enemies[id].rotation)
           break

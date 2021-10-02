@@ -1,4 +1,13 @@
 export const walls= [
+
+
+/*
+
+				 begin exterior
+
+*/
+
+
 {color: 'white', location: [0,0]},
 {color: 'white', location: [1,0]},
 {color: 'white', location: [2,0]},
@@ -401,7 +410,12 @@ export const walls= [
 {color: 'white', location: [99,98]},
 {color: 'white', location: [99,99]},
 
-//end ext
+/*
+
+				 END exterior
+
+*/
+
 {color: 'white', location: [0,30]},
 {color: 'white', location: [1,30]},
 {color: 'white', location: [2,30]},
