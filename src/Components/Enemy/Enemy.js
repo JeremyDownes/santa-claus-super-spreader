@@ -97,7 +97,7 @@ bullets.forEach((bullet,i)=>{
 })
 
   return (
-    <div className='enemy' style={{top: ystring, left: xstring, backgroundColor: color, zIndex: z, transform: 'rotateZ('+rotation+'deg)'}} > {viralLoad} </div>
+    <div className='enemy' style={{top: ystring, left: xstring, backgroundColor: color, zIndex: z, transform: 'rotateZ('+rotation+'deg)'}} > Viral Load: {viralLoad} </div>
         
   );
 }

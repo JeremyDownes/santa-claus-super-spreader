@@ -43,7 +43,7 @@ let ystring = y+'vh'
 
   return (
     <div id="player"  >
-        <div id='piece' className={bgclass} style={{top: ystring, left: xstring, zIndex: Math.floor(y)}}>{viralLoad}</div>
+        <div id='piece' className={bgclass} style={{top: ystring, left: xstring, zIndex: Math.floor(y)}}>Viral Load: {viralLoad}</div>
     </div>
         
   );

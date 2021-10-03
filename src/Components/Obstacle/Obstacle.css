@@ -94,3 +94,11 @@
 .sink {
   background-image: url('../../resources/images/sink.png');  
 }
+
+.christmas-tree {
+  background-image: url('../../resources/images/christmas-tree.gif');  
+}
+
+.christmas-tree-gifted {
+  background-image: url('../../resources/images/christmas-tree-gifted.gif');  
+}

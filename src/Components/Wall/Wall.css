@@ -1,7 +1,23 @@
 .wall {
-  width: 1vh; 
+  width: 1.01vh; 
   height: 6vh; 
   position: absolute;
-  pointer-events: none;  
+  pointer-events: none; 
+  overflow: visible; 
 }
 
+.bliss {
+  transform: translateY(1vh);
+  width: 3.2vh;
+  height: 2vh;
+  background-image: url('../../resources/images/bliss.jpg'); 
+  background-size: contain;
+}
+
+.window-mountains {
+  transform: translateY(1vh);
+  width: 3.8vh;
+  height: 3.2vh;
+  background-image: url('../../resources/images/window-mountains.jpg'); 
+  background-size: cover;
+}

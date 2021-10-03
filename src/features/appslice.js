@@ -12,8 +12,8 @@ export const appSlice = createSlice({
     bullets: [],
     obstacles: obstacles,
     x: 50,
-    y: 10,
-    rotation: 0,
+    y: 11,
+    rotation: 180,
     test: '',
     isMoving: false,
     viralLoad: 0
@@ -87,8 +87,9 @@ export const appSlice = createSlice({
                 state.y -= direction[1]
               }
             })
-            obstacles.forEach((obstacle)=>{
+            obstacles.forEach((obstacle,i)=>{
               if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
+                if(obstacle.type==='christmas-tree'){state.obstacles[i].type='christmas-tree-gifted'}
                 state.x -= direction[0]
                 state.y -= direction[1]                
               }

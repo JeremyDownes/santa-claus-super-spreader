@@ -4,6 +4,7 @@ export const obstacles= [
 	{type: 'blue-chair-back-angle',width:5,height:7,location:[40,12]},
 	{type: 'blue-chair-back-angle reverse',width:5,height:7,location:[60,12]},
 	{type: 'small-table-front',width:4,height:4,location:[2,18]},
+	{type: 'christmas-tree',width:7,height:12,location:[85,1]},
 
 	{type: 'desk-back',width:10,height:8,location:[15,32]},
 	{type: 'bed-side reverse',width:16,height:7,location:[1,50]},

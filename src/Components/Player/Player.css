@@ -6,6 +6,7 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  pointer-events: none;
 }
 
 .stand-forward {
