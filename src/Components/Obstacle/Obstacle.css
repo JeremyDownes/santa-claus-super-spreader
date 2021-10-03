@@ -29,3 +29,35 @@
 .desk-back {
   background-image: url('../../resources/images/desk-back.png');  
 }
+
+.bed-side {
+  background-image: url('../../resources/images/bed-side.png');  
+}
+
+.bed-2-side {
+  background-image: url('../../resources/images/bed-2-side.png');  
+}
+
+.cabinet {
+  background-image: url('../../resources/images/cabinet.png');  
+}
+
+.stove {
+  background-image: url('../../resources/images/stove.png');  
+}
+
+.fridge {
+  background-image: url('../../resources/images/fridge.png');  
+}
+
+.table {
+  background-image: url('../../resources/images/table.png');  
+}
+
+.toilet {
+  background-image: url('../../resources/images/toilet.png');  
+}
+
+.toilet-side {
+  background-image: url('../../resources/images/toilet-side.png');  
+}

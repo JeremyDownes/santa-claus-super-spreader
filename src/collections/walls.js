@@ -666,5 +666,4 @@ export const walls= [
 {color: 'white', location: [97,70]},
 {color: 'white', location: [98,70]},
 {color: 'white', location: [99,70]},
-
 ]

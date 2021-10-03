@@ -44,7 +44,7 @@ export const appSlice = createSlice({
             id = action.payload.id
             if(isWallBetween(state.walls,state.enemies[id].location,[state.x,state.y])) {return}
             state.viralLoad+=state.enemies[id].viralLoad*.01
-            state.enemies[id].color='green'
+            state.enemies[id].color='yellow'
           break          
           case 'enemy/move':
             id = action.payload.id
