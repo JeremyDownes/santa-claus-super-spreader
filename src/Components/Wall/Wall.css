@@ -2,5 +2,6 @@
   width: 1vh; 
   height: 6vh; 
   position: absolute;
+  pointer-events: none;  
 }
 

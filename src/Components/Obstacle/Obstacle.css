@@ -42,6 +42,22 @@
   background-image: url('../../resources/images/cabinet.png');  
 }
 
+.sink-cabinet {
+  background-image: url('../../resources/images/sink-cabinet.png');  
+}
+
+.sink-cabinet-side {
+  background-image: url('../../resources/images/sink-cabinet-side.png');  
+}
+
+.cabinet-side {
+  background-image: url('../../resources/images/cabinet-side.png');  
+}
+
+.corner-cabinet {
+  background-image: url('../../resources/images/corner-cabinet.png');  
+}
+
 .stove {
   background-image: url('../../resources/images/stove.png');  
 }
@@ -54,10 +70,27 @@
   background-image: url('../../resources/images/table.png');  
 }
 
+.wooden-chair {
+  background-image: url('../../resources/images/wooden-chair.png');  
+}
+
+.wooden-chair-back {
+  background-image: url('../../resources/images/wooden-chair-back.png');  
+}
+
 .toilet {
   background-image: url('../../resources/images/toilet.png');  
 }
 
 .toilet-side {
   background-image: url('../../resources/images/toilet-side.png');  
+}
+
+.tub {
+  background-image: url('../../resources/images/tub.png');  
+  background-size: cover;
+}
+
+.sink {
+  background-image: url('../../resources/images/sink.png');  
 }
