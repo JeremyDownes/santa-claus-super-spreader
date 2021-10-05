@@ -8,16 +8,12 @@ export const inputSlice = createSlice({
   },
   reducers: {
     right: (state) => {
-      state.x += state.x<99? 1 : 0
     },
     left: (state) => {
-      state.x -= state.x>0? 1 : 0
     },
     up: (state) => {
-      state.y -= state.y>0 ? 1 : 0
     },
     down: (state) => {
-      state.y += state.y<99? 1 : 0
     },
     shoot: () => {},
     rotLeft: () => {}, 

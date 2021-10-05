@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import Input from './Components/Input/Input'
 import Player from './Components/Player/Player'
-import Enemy from './Components/Enemy/Enemy'
+import NPC from './Components/NPC/NPC'
 import Bullet from './Components/Bullet/Bullet'
 import Wall from './Components/Wall/Wall'
 import Obstacle from './Components/Obstacle/Obstacle'
@@ -18,7 +18,7 @@ import './App.css';
 
 function App() {
 const dispatch = useDispatch()
-const enemies = useSelector((state) => state.app.enemies)  
+const npcs = useSelector((state) => state.app.npcs)  
 const bullets = useSelector((state) => state.app.bullets)  
 const walls = useSelector((state) => state.app.walls)  
 const obstacles = useSelector((state) => state.app.obstacles) 
@@ -49,7 +49,7 @@ useEffect(() => {
         {walls.map((i)=><Wall key={key++} color={i.color} location={i.location} content={i.content}/>)}
         {obstacles.map((i)=><Obstacle key={key++} type={i.type} height={i.height} width={i.width} location={i.location} />)}
         {bullets.map((i)=><Bullet key={key++} id={bid++} position={i.position} registerDispatch={registerDispatch}  />)}
-        {enemies.map((i)=><Enemy type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />)}
+        {npcs.map((i)=><NPC type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />)}
       </div>
       <Input registerDispatch={registerDispatch} />
     </div>
