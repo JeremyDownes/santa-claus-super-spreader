@@ -70,7 +70,7 @@ bullets.forEach((bullet,i)=>{
   infect()
   let turn
   walls.forEach((wall)=>{ 
-  if(wall.location[0]===Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])&&wall.location[1]===Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])){
+  if(wall.location[0]===Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])&&wall.location[1]+9===Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])){
     props.registerDispatch({type:'npc/modXY', payload: {id: id } })
     }
   })

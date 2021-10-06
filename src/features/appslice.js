@@ -12,11 +12,12 @@ export const appSlice = createSlice({
     bullets: [],
     obstacles: obstacles,
     x: 50,
-    y: 11,
+    y: 15,
     rotation: 180,
     test: '',
     isMoving: false,
-    viralLoad: 0
+    viralLoad: 0,
+    packageDelivered: false,
   },
   reducers: {
     doAct: (state, i) => {
@@ -82,7 +83,8 @@ export const appSlice = createSlice({
             state.x += direction[0]
             state.y += direction[1]
             walls.forEach((wall)=>{ 
-              if(wall.location[0]===Math.floor(state.x)&&wall.location[1]===Math.floor(state.y)){
+
+              if(wall.location[0]===Math.floor(state.x)&&wall.location[1]+10===Math.floor(state.y)){
                 state.x -= direction[0]
                 state.y -= direction[1]
               }

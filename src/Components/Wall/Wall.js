@@ -7,7 +7,7 @@ let location = props.location
 
 let x= location[0]+'vh'
 let y= location[1]+'vh'
-let z= location[1]
+let z= location[1]+10
 
 
   return (

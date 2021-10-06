@@ -1,13 +1,13 @@
 .wall {
   width: 1.01vh; 
-  height: 6vh; 
+  height: 10vh; 
   position: absolute;
   pointer-events: none; 
   overflow: visible; 
 }
 
 .bliss {
-  transform: translateY(1vh);
+  transform: translateY(3vh);
   width: 3.2vh;
   height: 2vh;
   background-image: url('../../resources/images/bliss.jpg'); 
@@ -15,7 +15,7 @@
 }
 
 .window-mountains {
-  transform: translateY(1vh);
+  transform: translateY(2vh);
   width: 3.8vh;
   height: 3.2vh;
   background-image: url('../../resources/images/window-mountains.jpg'); 
