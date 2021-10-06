@@ -44,7 +44,7 @@ export const appSlice = createSlice({
           case 'npc/infect':
             id = action.payload.id
             if(isWallBetween(state.walls,state.npcs[id].location,[state.x,state.y])) {return}
-            state.viralLoad+=state.npcs[id].viralLoad*.01
+            state.viralLoad+=state.npcs[id].viralLoad*.005
             state.npcs[id].color='yellow'
           break          
           case 'npc/move':
@@ -90,7 +90,7 @@ export const appSlice = createSlice({
               }
             })
             obstacles.forEach((obstacle,i)=>{
-              if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
+              if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]+(obstacle.yOffset?obstacle.yOffset:0)&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
                 if(obstacle.type==='christmas-tree'){
                   state.obstacles[i].type='christmas-tree-gifted'
                   state.packageDelivered=true
@@ -113,13 +113,13 @@ export const appSlice = createSlice({
             state.x -= direction[0]
             state.y -= direction[1]
             walls.forEach((wall)=>{ 
-              if(wall.location[0]===Math.floor(state.x)&&wall.location[1]===Math.floor(state.y)){
+              if(wall.location[0]===Math.floor(state.x)&&wall.location[1]+10===Math.floor(state.y)){
                 state.x += direction[0]
                 state.y += direction[1]
               } 
             })
             obstacles.forEach((obstacle)=>{
-              if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
+              if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]+(obstacle.yOffset?obstacle.yOffset:0)&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
                 state.x += direction[0]
                 state.y += direction[1]                
               }
