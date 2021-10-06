@@ -91,7 +91,14 @@ export const appSlice = createSlice({
             })
             obstacles.forEach((obstacle,i)=>{
               if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
-                if(obstacle.type==='christmas-tree'){state.obstacles[i].type='christmas-tree-gifted'}
+                if(obstacle.type==='christmas-tree'){
+                  state.obstacles[i].type='christmas-tree-gifted'
+                  state.packageDelivered=true
+                }
+                if(obstacle.type==='fireplace'&&state.packageDelivered){
+                  alert('You Win!')
+                  window.location.reload()
+                }                
                 state.x -= direction[0]
                 state.y -= direction[1]                
               }
