@@ -28,3 +28,8 @@
   background-image: url('./resources/images/floor.jpg');
   background-color: #FFFFFF05;
 }
+
+body::after{
+   position:absolute; width:0; height:0; overflow:hidden; z-index:-1; 
+   content: url(./resources/images/floor.jpg) url(./resources/images/floor.jpg); /*preload images*/
+}

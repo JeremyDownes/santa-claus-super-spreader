@@ -1,0 +1,27 @@
+.door {
+  width: 6vh; 
+  height: 1vh; 
+  position: absolute;
+  pointer-events: none; 
+  overflow: visible; 
+  background-color: brown;
+  transform-origin: bottom left;
+  transition: all .5s;
+}
+
+.vertical.closed {
+  transform: rotateZ(90deg);
+}
+
+
+.horizontal.closed {
+  transform: rotateZ(0deg);
+}
+
+.vertical.open{
+  transform: rotateZ(0deg);
+}
+
+.horizontal.open{
+  transform: rotateZ(0deg);
+}

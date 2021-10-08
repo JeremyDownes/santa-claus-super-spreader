@@ -3,12 +3,15 @@ import { calculate2dRotation } from '../app/calculate2dRotation'
 import { isWallBetween } from '../app/isWallBetween'
 import { walls } from '../collections/walls'
 import { obstacles } from '../collections/obstacles'
+import { doors } from '../collections/doors'
 
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
     npcs: [{type: 'box', startLocation: [10,10], location: [10,10], rotation: 180, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [10,40], rotation: 0, color: 'red', viralLoad: 0}],
     walls: walls,
+    doors: doors,
+    closeDoor: 0,
     bullets: [],
     obstacles: obstacles,
     x: 50,
@@ -30,7 +33,13 @@ export const appSlice = createSlice({
       // tick down virus
       if(state.viralLoad>0){state.viralLoad-=.03}else{state.viralLoad=0}
       state.viralLoad = Math.round(state.viralLoad*100)/100
-
+      // close door timer
+      if(state.closeDoor>0) {state.closeDoor--}else{
+        state.doors.forEach((door,i)=>{
+          state.doors[i].state = door.state.replace('open','closed')
+          state.doors[i].rotation = state.doors[i].state.includes('vertical')? 90 : 0
+        })
+      }
       let playerHasMoved = false
       i.payload.forEach((action)=>{
         let id = null
@@ -51,7 +60,7 @@ export const appSlice = createSlice({
             id = action.payload.id
             eDirection = calculate2dRotation(state.npcs[id].rotation)
             state.npcs[id].location[0] += .25*eDirection[0]
-            state.npcs[id].location[1] += .25*eDirection[1]
+            state.npcs[id].location[1] += .25*eDirection[1]  // problem npc exiting bottom
             if(state.npcs[id].location[1]<-1||state.npcs[id].location[0]<-1 || state.npcs[id].location[1]>100 || state.npcs[id].location[0]>100 ) { state.npcs[id].location = state.npcs[id].startLocation }
           break
           case 'npc/modXY':
@@ -83,10 +92,23 @@ export const appSlice = createSlice({
             state.x += direction[0]
             state.y += direction[1]
             walls.forEach((wall)=>{ 
-
               if(wall.location[0]===Math.floor(state.x)&&wall.location[1]+10===Math.floor(state.y)){
                 state.x -= direction[0]
                 state.y -= direction[1]
+              }
+            })
+            doors.forEach((door,i)=>{
+            let dimension  
+              if(door.rotation===0) {dimension=[11,0]} else {dimension=[0,11]}
+              if(door.location[0]<=Math.floor(state.x)&&door.location[0]+dimension[0]>=Math.floor(state.x)&&door.location[1]<=Math.floor(state.y)&&door.location[1]+dimension[1]>=Math.floor(state.y)){
+                if(!door.state.includes('locked')) {
+                  state.doors[i].rotation+=90
+                  state.doors[i].state=door.state.replace('closed','open')
+                  state.closeDoor = 10
+                } else {
+                  state.x -= direction[0]
+                  state.y -= direction[1]
+                }
               }
             })
             obstacles.forEach((obstacle,i)=>{
