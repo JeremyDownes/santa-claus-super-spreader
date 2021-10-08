@@ -47,8 +47,10 @@ const calculateFOV = ()=>{
 
 const infect = ()=>{
   if((player.x>x-15&&player.x<x+15)&&(player.y>y-12&&player.y<y+12)){props.registerDispatch({type:'npc/infect', payload: {id: id } })}
+  npcs.forEach((npc,i)=>{
+    if(i!=id&&(npc.location[0]>x-15&&npc.location[0]<x+15)&&(npc.location[1]>y-12&&npc.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, myId: id } })}    
+  })
 }
-
 
 let xstring = x+'vh'
 let ystring = y+'vh'
@@ -59,11 +61,6 @@ bullets.forEach((bullet,i)=>{
     props.registerDispatch({type:'npc/green', payload: {id: id } })
   }
 })
-
-  npcs.forEach((npc,i)=>{
-    if(i!=id&&(npc.location[0]>x-15&&npc.location[0]<x+15)&&(npc.location[1]>y-12&&npc.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, myId: id } })}    
-  })
-
 
  useEffect(() => {
   calculateFOV()
@@ -85,11 +82,11 @@ bullets.forEach((bullet,i)=>{
     props.registerDispatch({type:'npc/modXY', payload: {id: id } })
   }
 
-  if(x>=100||x<=-1) {
+  if(x>=99||x<=-1) {
     props.registerDispatch({type:'npc/modXY', payload: {id: id } })
   }
 
-  if(y>=100||y<=-1) {
+  if(y>=98||y<=1) {
     props.registerDispatch({type:'npc/modXY', payload: {id: id } })
   }  
 

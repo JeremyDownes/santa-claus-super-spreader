@@ -8,7 +8,7 @@ import { doors } from '../collections/doors'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    npcs: [{type: 'box', startLocation: [10,10], location: [10,10], rotation: 180, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [10,40], rotation: 0, color: 'red', viralLoad: 0}],
+    npcs: [{type: 'box', startLocation: [10,10], location: [50,30], rotation: 180, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [10,40], rotation: 0, color: 'red', viralLoad: 0}],
     walls: walls,
     doors: doors,
     closeDoor: 0,
