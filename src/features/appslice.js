@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { calculate2dRotation } from '../app/calculate2dRotation'
+import { openDoor } from '../app/openDoor'
 import { isWallBetween } from '../app/isWallBetween'
 import { walls } from '../collections/walls'
 import { obstacles } from '../collections/obstacles'
@@ -36,7 +37,7 @@ export const appSlice = createSlice({
       // close door timer
       if(state.closeDoor>0) {state.closeDoor--}else{
         state.doors.forEach((door,i)=>{
-          state.doors[i].state = door.state.replace('open','closed')
+          state.doors[i].state = door.state.replace('open-90','closed').replace('open90','closed')
           state.doors[i].rotation = state.doors[i].state.includes('vertical')? 90 : 0
         })
       }
@@ -99,11 +100,16 @@ export const appSlice = createSlice({
             })
             doors.forEach((door,i)=>{
             let dimension  
+            let rotation
               if(door.rotation===0) {dimension=[11,0]} else {dimension=[0,11]}
-              if(door.location[0]<=Math.floor(state.x)&&door.location[0]+dimension[0]>=Math.floor(state.x)&&door.location[1]<=Math.floor(state.y)&&door.location[1]+dimension[1]>=Math.floor(state.y)){
+              if(door.location[0]<=Math.round(state.x)&&door.location[0]+dimension[0]>=Math.round(state.x)&&door.location[1]<=Math.round(state.y)&&door.location[1]+dimension[1]>=Math.round(state.y)){
                 if(!door.state.includes('locked')) {
-                  state.doors[i].rotation+=90
-                  state.doors[i].state=door.state.replace('closed','open')
+                  if(state.rotation>0&&state.rotation<180&&door.rotation===90){rotation=90}
+                  if(state.rotation>180&&state.rotation<360&&door.rotation===90){rotation=-90}
+                  if(state.rotation>90&&state.rotation<270&&door.rotation===0){rotation=90}
+                  if((state.rotation>270||state.rotation<90)&&door.rotation===0){rotation=-90}
+                  state.doors[i].rotation+=rotation
+                  state.doors[i].state=door.state.replace('closed','open'+rotation)
                   state.closeDoor = 10
                 } else {
                   state.x -= direction[0]
@@ -111,6 +117,16 @@ export const appSlice = createSlice({
                 }
               }
             })
+
+
+            // let isOpenDoor = openDoor([state.x,state.y],state.rotation)
+            // console.log(openDoor([state.x,state.y],state.rotation))
+            // if(isOpenDoor) {
+            //   state.doors[isOpenDoor.index].rotation+=isOpenDoor.rotation
+            //   state.doors[isOpenDoor.index].state=state.doors[isOpenDoor.index].state.replace('closed','open'+isOpenDoor.rotation)
+            //   state.closeDoor = 10
+            // } 
+            
             obstacles.forEach((obstacle,i)=>{
               if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]+(obstacle.yOffset?obstacle.yOffset:0)&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
                 if(obstacle.type==='christmas-tree'){

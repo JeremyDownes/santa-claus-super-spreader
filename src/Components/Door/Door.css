@@ -18,10 +18,18 @@
   transform: rotateZ(0deg);
 }
 
-.vertical.open{
+.vertical.open-90{
+  transform: rotateZ(180deg);
+}
+
+.vertical.open90{
   transform: rotateZ(0deg);
 }
 
-.horizontal.open{
-  transform: rotateZ(0deg);
+.horizontal.open90{
+  transform: rotateZ(90deg);
+}
+
+.horizontal.open-90{
+  transform: rotateZ(-90deg);
 }
