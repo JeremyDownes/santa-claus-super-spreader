@@ -6,6 +6,7 @@ import NPC from './Components/NPC/NPC'
 import Bullet from './Components/Bullet/Bullet'
 import Wall from './Components/Wall/Wall'
 import Door from './Components/Door/Door'
+import Exits from './Components/Exit/Exit'
 import Obstacle from './Components/Obstacle/Obstacle'
 import { doAct } from './features/appslice'
 import logo from './logo.svg';
@@ -23,6 +24,7 @@ const npcs = useSelector((state) => state.app.npcs)
 const bullets = useSelector((state) => state.app.bullets)  
 const walls = useSelector((state) => state.app.walls)
 const doors = useSelector((state) => state.app.doors)    
+const exits = useSelector((state) => state.app.exits)    
 const obstacles = useSelector((state) => state.app.obstacles) 
 const rotation = useSelector((state) => state.app.rotation)  
 let events = []
@@ -49,6 +51,7 @@ useEffect(() => {
       <div id = 'gameboard'>
         {walls.map((i)=><Wall key={key++} color={i.color} location={i.location} content={i.content}/>)}
         {doors.map((i)=><Door key={key++} location={i.location} rotation={i.rotation} state={i.state}/>)}
+        {exits.map((i)=><Exits key={key++} destination={i.destination} location={i.location} rotation={i.rotation} state={i.state} registerDispatch={registerDispatch}/>)}
         {obstacles.map((i)=><Obstacle key={key++} type={i.type} height={i.height} width={i.width} location={i.location} />)}
         {bullets.map((i)=><Bullet key={key++} id={bid++} position={i.position} registerDispatch={registerDispatch}  />)}
         {npcs.map((i)=><NPC type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />)}

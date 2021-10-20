@@ -10,8 +10,9 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: {
     npcs: [{type: 'box', startLocation: [10,10], location: [50,30], rotation: 180, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [10,40], rotation: 0, color: 'red', viralLoad: 0}],
-    walls: walls,
+    walls: walls[0],
     doors: doors,
+    exits: [{location:[48,99], destination: 1, rotation: 0, state: 'horizontal closed'},{location:[99,15], destination: 1, rotation: 90, state: 'vertical closed'}],
     closeDoor: 0,
     bullets: [],
     obstacles: obstacles,
@@ -92,13 +93,13 @@ export const appSlice = createSlice({
             if ( state.y + direction[1] > 100 || state.y + direction[1] < 0 ) { return }
             state.x += direction[0]
             state.y += direction[1]
-            walls.forEach((wall)=>{ 
+            state.walls.forEach((wall)=>{ 
               if(wall.location[0]===Math.floor(state.x)&&wall.location[1]+10===Math.floor(state.y)){
                 state.x -= direction[0]
                 state.y -= direction[1]
               }
             })
-            doors.forEach((door,i)=>{
+            state.doors.forEach((door,i)=>{
             let dimension  
             let rotation
               if(door.rotation===0) {dimension=[11,0]} else {dimension=[0,11]}
@@ -127,7 +128,7 @@ export const appSlice = createSlice({
             //   state.closeDoor = 10
             // } 
             
-            obstacles.forEach((obstacle,i)=>{
+            state.obstacles.forEach((obstacle,i)=>{
               if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]+(obstacle.yOffset?obstacle.yOffset:0)&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
                 if(obstacle.type==='christmas-tree'){
                   state.obstacles[i].type='christmas-tree-gifted'
@@ -150,13 +151,13 @@ export const appSlice = createSlice({
             if ( state.y - direction[1] > 100 || state.y - direction[1] < 0 ) { return }
             state.x -= direction[0]
             state.y -= direction[1]
-            walls.forEach((wall)=>{ 
+            state.walls.forEach((wall)=>{ 
               if(wall.location[0]===Math.floor(state.x)&&wall.location[1]+10===Math.floor(state.y)){
                 state.x += direction[0]
                 state.y += direction[1]
               } 
             })
-            obstacles.forEach((obstacle)=>{
+            state.obstacles.forEach((obstacle)=>{
               if( (Math.floor(state.x)>=obstacle.location[0]&&Math.floor(state.x)<=obstacle.location[0]+obstacle.width) && ( Math.floor(state.y)>=obstacle.location[1]+(obstacle.yOffset?obstacle.yOffset:0)&&Math.floor(state.y)<=obstacle.location[1]+obstacle.height) ){
                 state.x += direction[0]
                 state.y += direction[1]                
@@ -205,7 +206,11 @@ export const appSlice = createSlice({
             state.npcs[id].viralLoad+=multiplier*.001
             state.npcs[id].viralLoad=(state.npcs[id].viralLoad*1000)/1000
           break          
+          case 'loadRoom':
+            state.walls=walls[action.payload.destination]
+          break
         }
+
       })
       state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})
     }

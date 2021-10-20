@@ -48,7 +48,7 @@ const calculateFOV = ()=>{
 const infect = ()=>{
   if((player.x>x-15&&player.x<x+15)&&(player.y>y-12&&player.y<y+12)){props.registerDispatch({type:'npc/infect', payload: {id: id } })}
   npcs.forEach((npc,i)=>{
-    if(i!=id&&(npc.location[0]>x-15&&npc.location[0]<x+15)&&(npc.location[1]>y-12&&npc.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, myId: id } })}    
+    if(i!==id&&(npc.location[0]>x-15&&npc.location[0]<x+15)&&(npc.location[1]>y-12&&npc.location[1]<y+12)){props.registerDispatch({type:'co/infect', payload: {id: i, myId: id } })}    
   })
 }
 

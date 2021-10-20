@@ -2,7 +2,6 @@ import './Door.css';
 
 
 function Door(props) {
-
 let location = props.location
 
 let x= location[0]+'vh'
