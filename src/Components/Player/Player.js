@@ -12,9 +12,11 @@ const isMoving = useSelector((state) => state.app.isMoving)
 const npcs = useSelector((state) => state.app.npcs)
 let bgclass
 
+if(npcs.length>1) {
   npcs.forEach((enemy,i)=>{
     if((enemy.location[0]>x-15&&enemy.location[0]<x+15)&&(enemy.location[1]>y-12&&enemy.location[1]<y+12)){props.registerDispatch({type:'player/infect', payload: {id: i } })}    
   })
+}
 
   if (rotation>338||rotation<=22) {bgclass='stand-back'}
   if (rotation>22&&rotation<=67) {bgclass='stand-backRight'}

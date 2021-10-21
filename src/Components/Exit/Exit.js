@@ -10,10 +10,10 @@ const playerx = useSelector((state) => state.app.x)
 const playery = useSelector((state) => state.app.y)
 
 useEffect(()=>{
-  let addX = props.state.includes('horizontal')?11:1
-  let addY = props.state.includes('vertical')?11:1
+  let addX = props.state.includes('horizontal')?11:2
+  let addY = props.state.includes('vertical')?11:2
   if((playerx>=location[0]-1&&playerx<=location[0]+addX)&&(playery>=location[1]-1&&playery<=location[1]+addY)) {
-    props.registerDispatch({type:'loadRoom', payload: {destination: props.destination } })
+    props.registerDispatch({type:'loadRoom', payload: {destination: props.destination, playerTo: props.playerTo } })
   }
 })
 

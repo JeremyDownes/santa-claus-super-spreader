@@ -5,17 +5,19 @@ import { isWallBetween } from '../app/isWallBetween'
 import { walls } from '../collections/walls'
 import { obstacles } from '../collections/obstacles'
 import { doors } from '../collections/doors'
+import { exits } from '../collections/exits'
+import { npcs } from '../collections/npcs'
 
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    npcs: [{type: 'box', startLocation: [10,10], location: [50,30], rotation: 180, color: 'red', viralLoad: 100},{type: 'box', startLocation: [20,20], location: [10,40], rotation: 0, color: 'red', viralLoad: 0}],
+    npcs: npcs[0],
     walls: walls[0],
-    doors: doors,
-    exits: [{location:[48,99], destination: 1, rotation: 0, state: 'horizontal closed'},{location:[99,15], destination: 1, rotation: 90, state: 'vertical closed'}],
+    doors: doors[0],
+    exits: exits[0],
     closeDoor: 0,
     bullets: [],
-    obstacles: obstacles,
+    obstacles: obstacles[0],
     x: 50,
     y: 15,
     rotation: 180,
@@ -23,15 +25,20 @@ export const appSlice = createSlice({
     isMoving: false,
     viralLoad: 0,
     packageDelivered: false,
+    loadingRoom: false,
+    room: 0
   },
   reducers: {
     doAct: (state, i) => {
       //npc state reset
+      if(state.loadingRoom!==false){state.npcs=npcs[state.loadingRoom];state.loadingRoom=false;return}
+        else {
       state.npcs.forEach((npc)=>{
         npc.color='red'
         if(npc.viralLoad>0){npc.viralLoad-=.01}else{npc.viralLoad=0}
         npc.viralLoad = Math.round(npc.viralLoad*100)/100
       })
+      }
       // tick down virus
       if(state.viralLoad>0){state.viralLoad-=.03}else{state.viralLoad=0}
       state.viralLoad = Math.round(state.viralLoad*100)/100
@@ -48,22 +55,35 @@ export const appSlice = createSlice({
         let direction = []
         let eDirection
         switch (action.type) {
+            case 'loadRoom':
+            state.walls = walls[action.payload.destination]
+            state.obstacles = obstacles[action.payload.destination]
+            state.doors = doors[action.payload.destination]
+            state.exits = exits[action.payload.destination]
+            state.x = action.payload.playerTo[0]
+            state.y = action.payload.playerTo[1]
+            state.loadingRoom = action.payload.destination
+            state.room = action.payload.destination
+            return
+          break
           case 'npc/green':
             id = action.payload.id
-            state.npcs[id].color='green'
+            state.npcs[id].color ='green'
           break
           case 'npc/infect':
             id = action.payload.id
             if(isWallBetween(state.walls,state.npcs[id].location,[state.x,state.y])) {return}
             state.viralLoad+=state.npcs[id].viralLoad*.005
-            state.npcs[id].color='yellow'
+            state.npcs[id].color ='yellow'
           break          
           case 'npc/move':
-            id = action.payload.id
+          id = action.payload.id
+          if(state.npcs[id]){
             eDirection = calculate2dRotation(state.npcs[id].rotation)
-            state.npcs[id].location[0] += .25*eDirection[0]
-            state.npcs[id].location[1] += .25*eDirection[1]  // problem npc exiting bottom
+            if(state.npcs[id].location[0]) {state.npcs[id].location[0] += .25*eDirection[0]}
+            if(state.npcs[id].location[1]) {state.npcs[id].location[1] += .25*eDirection[1]} 
             if(state.npcs[id].location[1]<-1||state.npcs[id].location[0]<-1 || state.npcs[id].location[1]>100 || state.npcs[id].location[0]>100 ) { state.npcs[id].location = state.npcs[id].startLocation }
+          }
           break
           case 'npc/modXY':
             id = action.payload.id
@@ -206,9 +226,6 @@ export const appSlice = createSlice({
             state.npcs[id].viralLoad+=multiplier*.001
             state.npcs[id].viralLoad=(state.npcs[id].viralLoad*1000)/1000
           break          
-          case 'loadRoom':
-            state.walls=walls[action.payload.destination]
-          break
         }
 
       })
