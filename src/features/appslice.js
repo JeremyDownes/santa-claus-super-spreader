@@ -31,15 +31,15 @@ export const appSlice = createSlice({
   },
   reducers: {
     doAct: (state, i) => {
-      if(state.destination&&(Math.round(state.x)!==state.destination[0]||Math.round(state.y)!==state.destination[1])){
-        i.payload.push({type:'input/up', payload: null})
-        i.payload.push({type:'input/animatePlayer', payload: true})
-      } else {
-        state.destination=null
-        if(state.playerHasMoved){
+      if(state.destination) {
+        if(Math.round(state.x)!==state.destination[0]||Math.round(state.y)!==state.destination[1]){
+          i.payload.push({type:'input/up', payload: null})
+          i.payload.push({type:'input/animatePlayer', payload: true})
+        } else {
+          state.destination=null
           i.payload.push({type:'input/animatePlayer', payload: false})
         }
-      }
+      } 
       //npc state reset
       if(state.loadingRoom!==false){state.npcs=npcs[state.loadingRoom];state.loadingRoom=false;return}
         else {
