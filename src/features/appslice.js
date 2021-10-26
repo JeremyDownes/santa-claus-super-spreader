@@ -21,6 +21,7 @@ export const appSlice = createSlice({
     x: 50,
     y: 15,
     rotation: 180,
+    destination: null,
     test: '',
     isMoving: false,
     viralLoad: 0,
@@ -30,6 +31,15 @@ export const appSlice = createSlice({
   },
   reducers: {
     doAct: (state, i) => {
+      if(state.destination&&(Math.round(state.x)!==state.destination[0]||Math.round(state.y)!==state.destination[1])){
+        i.payload.push({type:'input/up', payload: null})
+        i.payload.push({type:'input/animatePlayer', payload: true})
+      } else {
+        state.destination=null
+        if(state.playerHasMoved){
+          i.payload.push({type:'input/animatePlayer', payload: false})
+        }
+      }
       //npc state reset
       if(state.loadingRoom!==false){state.npcs=npcs[state.loadingRoom];state.loadingRoom=false;return}
         else {
@@ -201,10 +211,37 @@ export const appSlice = createSlice({
           break
           case 'input/shoot':
             state.bullets.push({direction: calculate2dRotation(state.rotation), location: [state.x,state.y], remove: false})
-          break      
+          break
+          case 'input/goto':
+            let diffX = (action.payload[0] - Math.round(state.x))
+            let diffY = (action.payload[1] - Math.round(state.y))
+            state.destination = action.payload
+            state.rotation = diffX>0 && diffY>0? 135 : state.rotation 
+            console.log(diffX,diffY)
+            if(diffX===0&&diffY>0) {state.rotation=180; return}
+            if(diffX===0&&diffY<0) {state.rotation=0; return}
+            if(diffY===0&&diffX<0) {state.rotation=270; return}
+            if(diffY===0&&diffX>0) {state.rotation=90; return}
+            if (diffX>0&&diffY>0) {
+              let divisor = diffX>=diffY?(diffY/diffX)/2:1-((diffX/diffY)/2)
+              state.rotation=90+(divisor*90)
+            } 
+            if (diffX<0&&diffY>0) {
+              let divisor = Math.abs(diffX)>=diffY?1-(diffY/Math.abs(diffX))/2:((Math.abs(diffX)/diffY)/2)
+              state.rotation=180+(divisor*90)
+            }
+            if (diffX<0&&diffY<0) {
+              let divisor = Math.abs(diffX)>=Math.abs(diffY)?(Math.abs(diffY)/Math.abs(diffX))/2:1-((Math.abs(diffX)/Math.abs(diffY))/2)
+              state.rotation=270+(divisor*90)
+            }
+            if (diffX>0&&diffY<0) {
+              let divisor = diffX>=Math.abs(diffY)?1-(Math.abs(diffY)/diffX)/2:((diffX/Math.abs(diffY))/2)
+              state.rotation=0+(divisor*90)
+            }
+          break
           case 'input/rotRight':
             state.rotation = state.rotation % 360 + 5
-          break    
+          break
           case 'input/rotLeft':
             state.rotation = state.rotation % 360 - 5
             if (state.rotation === -5) {state.rotation=355}

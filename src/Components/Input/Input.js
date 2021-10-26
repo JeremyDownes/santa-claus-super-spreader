@@ -7,13 +7,14 @@ import { left, right, up, down, shoot, rotLeft, rotRight } from '../../features/
 function Input(props) {
 
     const [dispatches,setDispatches] = useState([])
+    const ratio = window.innerHeight / 100
+    const widthOffset = (window.innerWidth - window.innerHeight) / 2
     let dispatchesCopy
 
 useEffect(()=>{
     dispatches.forEach((dispatch)=>{
         props.registerDispatch(dispatch)
     })
-
 })
 
 
@@ -66,9 +67,13 @@ const keyUp = (e) => {
     setDispatches(dispatchesCopy);        
   }  
 
+  const tap = (e) => {
+    props.registerDispatch({type: 'input/goto', payload: [ Math.round((e.clientX-widthOffset)/ratio ), Math.round(e.clientY/ratio)] })
+  }
+
 
   return (
-    <input id="key-capture" autoFocus onKeyDown={(e)=>{keyDown(e)}} onKeyUp={(e)=>{keyUp(e)}} />
+    <input id="key-capture" autoFocus onKeyDown={(e)=>{keyDown(e)}} onKeyUp={(e)=>{keyUp(e)}} onClick={(e)=>{tap(e)}}  />
   );
 }
 

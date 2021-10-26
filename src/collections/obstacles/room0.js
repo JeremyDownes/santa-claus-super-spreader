@@ -4,7 +4,6 @@ export const room0= [
 	{type: 'small-table-front',width:4,height:4,location:[2,22]},
 	{type: 'blue-chair-back-angle',width:5,height:7,location:[36,16],yOffset: 3},
 	{type: 'blue-chair-back-angle reverse',width:5,height:7,location:[60,16],yOffset: 3},
-	{type: 'christmas-tree',width:7,height:12,location:[85,1],yOffset: 7},
 
 	{type: 'desk-back',width:10,height:8,location:[15,36],yOffset: 3},
 	{type: 'bed-side reverse',width:16,height:7,location:[1,50],yOffset: 3},

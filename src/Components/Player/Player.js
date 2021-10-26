@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux'
 import './Player.css';
 
@@ -10,6 +10,7 @@ const viralLoad = useSelector((state) => state.app.viralLoad)
 const rotation = useSelector((state) => state.app.rotation)
 const isMoving = useSelector((state) => state.app.isMoving)
 const npcs = useSelector((state) => state.app.npcs)
+const containerRef = useRef(null);
 let bgclass
 
 if(npcs.length>1) {
@@ -39,16 +40,16 @@ if(isMoving) {
   if (rotation>292&&rotation<=338) {bgclass='backLeft'}   
 }
 
-
 let xstring = x+'vh'
 let ystring = y+'vh'
 
   return (
     <div id="player"  >
-        <div id='piece' className={bgclass} style={{top: ystring, left: xstring, zIndex: Math.floor(y)}}>Viral Load: {viralLoad}</div>
+        <div id='piece'  ref={containerRef} className={bgclass} style={{top: ystring, left: xstring, zIndex: Math.floor(y)}}>Viral Load: {viralLoad}</div>
     </div>
         
   );
 }
 
 export default Player;
+

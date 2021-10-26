@@ -16,6 +16,7 @@
 
 .horizontal.closed {
   transform: rotateZ(0deg);
+  height: 8vh;
 }
 
 .vertical.open-90{
