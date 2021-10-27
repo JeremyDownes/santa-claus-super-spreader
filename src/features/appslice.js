@@ -127,6 +127,8 @@ export const appSlice = createSlice({
               if(wall.location[0]===Math.floor(state.x)&&wall.location[1]+10===Math.floor(state.y)){
                 state.x -= direction[0]
                 state.y -= direction[1]
+                state.destination=null          
+                state.isMoving=false                                
               }
             })
             state.doors.forEach((door,i)=>{
@@ -145,6 +147,8 @@ export const appSlice = createSlice({
                 } else {
                   state.x -= direction[0]
                   state.y -= direction[1]
+                  state.destination=null          
+                  state.isMoving=false
                 }
               }
             })
@@ -169,7 +173,9 @@ export const appSlice = createSlice({
                   window.location.reload()
                 }                
                 state.x -= direction[0]
-                state.y -= direction[1]                
+                state.y -= direction[1]      
+                state.destination=null          
+                state.isMoving=false
               }
             })
             playerHasMoved=true
@@ -217,7 +223,6 @@ export const appSlice = createSlice({
             let diffY = (action.payload[1] - Math.round(state.y))
             state.destination = action.payload
             state.rotation = diffX>0 && diffY>0? 135 : state.rotation 
-            console.log(diffX,diffY)
             if(diffX===0&&diffY>0) {state.rotation=180; return}
             if(diffX===0&&diffY<0) {state.rotation=0; return}
             if(diffY===0&&diffX<0) {state.rotation=270; return}
