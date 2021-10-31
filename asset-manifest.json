@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/santa-claus-super-spreader/static/css/main.335c00f1.chunk.css",
-    "main.js": "/santa-claus-super-spreader/static/js/main.3c45f246.chunk.js",
-    "main.js.map": "/santa-claus-super-spreader/static/js/main.3c45f246.chunk.js.map",
+    "main.js": "/santa-claus-super-spreader/static/js/main.cc3fad0a.chunk.js",
+    "main.js.map": "/santa-claus-super-spreader/static/js/main.cc3fad0a.chunk.js.map",
     "runtime-main.js": "/santa-claus-super-spreader/static/js/runtime-main.aa8704c2.js",
     "runtime-main.js.map": "/santa-claus-super-spreader/static/js/runtime-main.aa8704c2.js.map",
     "static/js/2.c985080d.chunk.js": "/santa-claus-super-spreader/static/js/2.c985080d.chunk.js",
@@ -13,13 +13,12 @@
     "static/media/Obstacle.css": "/santa-claus-super-spreader/static/media/wooden-chair.6c32398e.png",
     "static/media/Wall.css": "/santa-claus-super-spreader/static/media/window-mountains.55fb6c19.jpg",
     "static/media/App.css": "/santa-claus-super-spreader/static/media/floor.1aa368e2.jpg",
-    "static/media/logo.db36153e.svg": "/santa-claus-super-spreader/static/media/logo.db36153e.svg",
     "static/media/Player.css": "/santa-claus-super-spreader/static/media/stand-right.d8d5cc23.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.aa8704c2.js",
     "static/js/2.c985080d.chunk.js",
     "static/css/main.335c00f1.chunk.css",
-    "static/js/main.3c45f246.chunk.js"
+    "static/js/main.cc3fad0a.chunk.js"
   ]
 }
