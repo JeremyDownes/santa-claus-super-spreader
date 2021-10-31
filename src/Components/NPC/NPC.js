@@ -17,7 +17,8 @@ const location = useSelector((state) => state.app.npcs[state.app.room][id].locat
 const color = useSelector((state) => state.app.npcs[state.app.room][id].color)
 const viralLoad = useSelector((state) => state.app.npcs[state.app.room][id].viralLoad)
 const npcs = useSelector((state) => state.app.npcs[state.app.room])
-
+let steps = useSelector((state) => state.app.npcs[state.app.room][id].steps)
+let step = useSelector((state) => state.app.npcs[state.app.room][id].step)
 
 const calculateFOV = ()=>{
   let fov = calculate2dRotation(rotation)
@@ -90,12 +91,15 @@ bullets.forEach((bullet,i)=>{
     props.registerDispatch({type:'npc/modXY', payload: {id: id } })
   }  
 
-  props.registerDispatch({type:'npc/move', payload: {id: id} })
+  if(steps) {
+    props.registerDispatch({type:'npc/'+steps[step].verb, payload: {id: id, step: steps[step]} })
+  } 
+  else { props.registerDispatch({type:'npc/move', payload: {id: id} }) }
+
 })
 
   return (
     <div className='npc' style={{top: ystring, left: xstring, backgroundColor: color, zIndex: z, transform: 'rotateZ('+rotation+'deg)'}} > Viral Load: {viralLoad} </div>
-        
   );
 }
 

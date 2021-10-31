@@ -80,6 +80,14 @@ export const appSlice = createSlice({
             id = action.payload.id
             state.npcs[state.room][id].color ='green'
           break
+          case 'npc/goto':
+            id = action.payload.id
+            state.npcs[state.room][id].rotation = rotateTo(state.npcs[state.room][id].location,action.payload.step.destination)
+            eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
+            state.npcs[state.room][id].location[0] += .25*eDirection[0]
+            state.npcs[state.room][id].location[1] += .25*eDirection[1]
+            if(Math.floor(state.npcs[state.room][id].location[0]) === action.payload.step.destination[0] && Math.floor(state.npcs[state.room][id].location[1]) === action.payload.step.destination[1] ) {state.npcs[state.room][id].step = state.npcs[state.room][id].step+1}
+          break
           case 'npc/infect':
             id = action.payload.id
             if(isWallBetween(state.walls,state.npcs[state.room][id].location,[state.x,state.y])) {return}
@@ -87,13 +95,11 @@ export const appSlice = createSlice({
             state.npcs[state.room][id].color ='yellow'
           break          
           case 'npc/move':
-          id = action.payload.id
-          if(state.npcs[state.room][id]){
+            id = action.payload.id
             eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
-            if(state.npcs[state.room][id].location[0]) {state.npcs[state.room][id].location[0] += .25*eDirection[0]}
-            if(state.npcs[state.room][id].location[1]) {state.npcs[state.room][id].location[1] += .25*eDirection[1]} 
-            if(state.npcs[state.room][id].location[1]<-1||state.npcs[state.room][id].location[0]<-1 || state.npcs[state.room][id].location[1]>100 || state.npcs[state.room][id].location[0]>100 ) { state.npcs[state.room][id].location = state.npcs[state.room][id].startLocation }
-          }
+            state.npcs[state.room][id].location[0] += .25*eDirection[0]
+            state.npcs[state.room][id].location[1] += .25*eDirection[1]
+            //if(state.npcs[state.room][id].location[1]<-1||state.npcs[state.room][id].location[0]<-1 || state.npcs[state.room][id].location[1]>100 || state.npcs[state.room][id].location[0]>100 ) { state.npcs[state.room][id].location = state.npcs[state.room][id].startLocation }
           break
           case 'npc/modXY':
             id = action.payload.id

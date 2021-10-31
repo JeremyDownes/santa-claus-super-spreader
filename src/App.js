@@ -13,7 +13,7 @@ import './App.css';
 
 function App() {
 const dispatch = useDispatch()
-const npcs = useSelector((state) => state.app.npcs)  
+const npcs = useSelector((state) => state.app.npcs[state.app.room])  
 const bullets = useSelector((state) => state.app.bullets)  
 const walls = useSelector((state) => state.app.walls)
 const doors = useSelector((state) => state.app.doors)    
@@ -23,7 +23,6 @@ let events = []
 let eid = 0
 let bid = 0
 let key = 0
-
 const registerDispatch = (newEvent)=>{
   events.push(newEvent)
 }
@@ -43,7 +42,7 @@ useEffect(() => {
         {exits?exits.map((i)=><Exits key={key++} destination={i.destination} playerTo={i.playerTo} location={i.location} rotation={i.rotation} state={i.state} registerDispatch={registerDispatch}/>):null}
         {obstacles.map((i)=><Obstacle key={key++} type={i.type} height={i.height} width={i.width} location={i.location} />)}
         {bullets.map((i)=><Bullet key={key++} id={bid++} position={i.position} registerDispatch={registerDispatch}  />)}
-        {npcs?npcs.map((i)=><NPC type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />):null}
+        {npcs.map((i)=><NPC type={i.type} key={key++} id={eid++} registerDispatch={registerDispatch} />)}
         <Player registerDispatch={registerDispatch}/>
       </div>
       <Input registerDispatch={registerDispatch} />
