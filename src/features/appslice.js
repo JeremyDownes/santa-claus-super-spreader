@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { calculate2dRotation } from '../app/calculate2dRotation'
+import { rotateTo } from '../app/rotateTo'
 import { openDoor } from '../app/openDoor'
 import { isWallBetween } from '../app/isWallBetween'
 import { walls } from '../collections/walls'
@@ -219,30 +220,8 @@ export const appSlice = createSlice({
             state.bullets.push({direction: calculate2dRotation(state.rotation), location: [state.x,state.y], remove: false})
           break
           case 'input/goto':
-            let diffX = (action.payload[0] - Math.round(state.x))
-            let diffY = (action.payload[1] - Math.round(state.y))
-            state.destination = action.payload
-            state.rotation = diffX>0 && diffY>0? 135 : state.rotation 
-            if(diffX===0&&diffY>0) {state.rotation=180; return}
-            if(diffX===0&&diffY<0) {state.rotation=0; return}
-            if(diffY===0&&diffX<0) {state.rotation=270; return}
-            if(diffY===0&&diffX>0) {state.rotation=90; return}
-            if (diffX>0&&diffY>0) {
-              let divisor = diffX>=diffY?(diffY/diffX)/2:1-((diffX/diffY)/2)
-              state.rotation=90+(divisor*90)
-            } 
-            if (diffX<0&&diffY>0) {
-              let divisor = Math.abs(diffX)>=diffY?1-(diffY/Math.abs(diffX))/2:((Math.abs(diffX)/diffY)/2)
-              state.rotation=180+(divisor*90)
-            }
-            if (diffX<0&&diffY<0) {
-              let divisor = Math.abs(diffX)>=Math.abs(diffY)?(Math.abs(diffY)/Math.abs(diffX))/2:1-((Math.abs(diffX)/Math.abs(diffY))/2)
-              state.rotation=270+(divisor*90)
-            }
-            if (diffX>0&&diffY<0) {
-              let divisor = diffX>=Math.abs(diffY)?1-(Math.abs(diffY)/diffX)/2:((diffX/Math.abs(diffY))/2)
-              state.rotation=0+(divisor*90)
-            }
+            state.destination = action.payload        
+            state.rotation = rotateTo([Math.round(state.x),Math.round(state.y)], action.payload)
           break
           case 'input/rotRight':
             state.rotation = state.rotation % 360 + 5
