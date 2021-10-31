@@ -6,17 +6,17 @@ import { isWallBetween } from '../../app/isWallBetween'
 
 function NPC(props) {
 const id = props.id
-const x = useSelector((state) => state.app.npcs[id].location[0])
-const y = useSelector((state) => state.app.npcs[id].location[1])
+const x = useSelector((state) => state.app.npcs[state.app.room][id].location[0])
+const y = useSelector((state) => state.app.npcs[state.app.room][id].location[1])
 const player = useSelector((state) => state.app)
 const bullets = useSelector((state) => state.app.bullets)
 const walls = useSelector((state) => state.app.walls)
 const obstacles = useSelector((state) => state.app.obstacles)
-const rotation = useSelector((state) => state.app.npcs[id].rotation)
-const location = useSelector((state) => state.app.npcs[id].location)
-const color = useSelector((state) => state.app.npcs[id].color)
-const viralLoad = useSelector((state) => state.app.npcs[id].viralLoad)
-const npcs = useSelector((state) => state.app.npcs)
+const rotation = useSelector((state) => state.app.npcs[state.app.room][id].rotation)
+const location = useSelector((state) => state.app.npcs[state.app.room][id].location)
+const color = useSelector((state) => state.app.npcs[state.app.room][id].color)
+const viralLoad = useSelector((state) => state.app.npcs[state.app.room][id].viralLoad)
+const npcs = useSelector((state) => state.app.npcs[state.app.room])
 
 
 const calculateFOV = ()=>{

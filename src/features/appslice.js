@@ -12,7 +12,7 @@ import { npcs } from '../collections/npcs'
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    npcs: npcs[0],
+    npcs: npcs,
     walls: walls[0],
     doors: doors[0],
     exits: exits[0],
@@ -42,14 +42,13 @@ export const appSlice = createSlice({
         }
       } 
       //npc state reset
-      if(state.loadingRoom!==false){state.npcs=npcs[state.loadingRoom];state.loadingRoom=false;return}
-        else {
-      state.npcs.forEach((npc)=>{
+
+      state.npcs[state.room].forEach((npc)=>{
         npc.color='red'
         if(npc.viralLoad>0){npc.viralLoad-=.01}else{npc.viralLoad=0}
         npc.viralLoad = Math.round(npc.viralLoad*100)/100
       })
-      }
+      
       // tick down virus
       if(state.viralLoad>0){state.viralLoad-=.03}else{state.viralLoad=0}
       state.viralLoad = Math.round(state.viralLoad*100)/100
@@ -79,21 +78,21 @@ export const appSlice = createSlice({
           break
           case 'npc/green':
             id = action.payload.id
-            state.npcs[id].color ='green'
+            state.npcs[state.room][id].color ='green'
           break
           case 'npc/infect':
             id = action.payload.id
-            if(isWallBetween(state.walls,state.npcs[id].location,[state.x,state.y])) {return}
-            state.viralLoad+=state.npcs[id].viralLoad*.005
-            state.npcs[id].color ='yellow'
+            if(isWallBetween(state.walls,state.npcs[state.room][id].location,[state.x,state.y])) {return}
+            state.viralLoad+=state.npcs[state.room][id].viralLoad*.005
+            state.npcs[state.room][id].color ='yellow'
           break          
           case 'npc/move':
           id = action.payload.id
-          if(state.npcs[id]){
-            eDirection = calculate2dRotation(state.npcs[id].rotation)
-            if(state.npcs[id].location[0]) {state.npcs[id].location[0] += .25*eDirection[0]}
-            if(state.npcs[id].location[1]) {state.npcs[id].location[1] += .25*eDirection[1]} 
-            if(state.npcs[id].location[1]<-1||state.npcs[id].location[0]<-1 || state.npcs[id].location[1]>100 || state.npcs[id].location[0]>100 ) { state.npcs[id].location = state.npcs[id].startLocation }
+          if(state.npcs[state.room][id]){
+            eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
+            if(state.npcs[state.room][id].location[0]) {state.npcs[state.room][id].location[0] += .25*eDirection[0]}
+            if(state.npcs[state.room][id].location[1]) {state.npcs[state.room][id].location[1] += .25*eDirection[1]} 
+            if(state.npcs[state.room][id].location[1]<-1||state.npcs[state.room][id].location[0]<-1 || state.npcs[state.room][id].location[1]>100 || state.npcs[state.room][id].location[0]>100 ) { state.npcs[state.room][id].location = state.npcs[state.room][id].startLocation }
           }
           break
           case 'npc/modXY':
@@ -101,10 +100,10 @@ export const appSlice = createSlice({
             let rando = Math.random()*33
             let sign = Math.random() < 0.5 ? -1 : 1;
             rando *= sign
-            state.npcs[id].rotation += 180
-            state.npcs[id].rotation += rando
-            state.npcs[id].rotation %= 360
-            eDirection = calculate2dRotation(state.npcs[id].rotation)
+            state.npcs[state.room][id].rotation += 180
+            state.npcs[state.room][id].rotation += rando
+            state.npcs[state.room][id].rotation %= 360
+            eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
           break
           case 'bullet/move':
             id = action.payload.id
@@ -235,17 +234,17 @@ export const appSlice = createSlice({
           break
           case 'player/infect':
             id = action.payload.id
-            if(isWallBetween(state.walls,state.npcs[id].location,[state.x,state.y])) {return}
-            state.npcs[id].viralLoad+=state.viralLoad*.001
-            state.npcs[id].viralLoad=(state.npcs[id].viralLoad*1000)/1000
+            if(isWallBetween(state.walls,state.npcs[state.room][id].location,[state.x,state.y])) {return}
+            state.npcs[state.room][id].viralLoad+=state.viralLoad*.001
+            state.npcs[state.room][id].viralLoad=(state.npcs[state.room][id].viralLoad*1000)/1000
           break   
           case 'co/infect':
             id = action.payload.id
             let myId = action.payload.myId
-            let multiplier = state.npcs[myId].viralLoad
-            if(isWallBetween(state.walls,state.npcs[id].location,state.npcs[myId].location)) {return}
-            state.npcs[id].viralLoad+=multiplier*.001
-            state.npcs[id].viralLoad=(state.npcs[id].viralLoad*1000)/1000
+            let multiplier = state.npcs[state.room][myId].viralLoad
+            if(isWallBetween(state.walls,state.npcs[state.room][id].location,state.npcs[state.room][myId].location)) {return}
+            state.npcs[state.room][id].viralLoad+=multiplier*.001
+            state.npcs[state.room][id].viralLoad=(state.npcs[state.room][id].viralLoad*1000)/1000
           break          
         }
 

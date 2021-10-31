@@ -9,7 +9,7 @@ const y = useSelector((state) => state.app.y)
 const viralLoad = useSelector((state) => state.app.viralLoad)
 const rotation = useSelector((state) => state.app.rotation)
 const isMoving = useSelector((state) => state.app.isMoving)
-const npcs = useSelector((state) => state.app.npcs)
+const npcs = useSelector((state) => state.app.npcs[state.app.room])
 const containerRef = useRef(null);
 let bgclass
 
