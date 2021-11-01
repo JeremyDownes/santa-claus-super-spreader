@@ -47,6 +47,12 @@ export const appSlice = createSlice({
         npc.color='red'
         if(npc.viralLoad>0){npc.viralLoad-=.01}else{npc.viralLoad=0}
         npc.viralLoad = Math.round(npc.viralLoad*100)/100
+        if(npc.timer>1) {npc.timer--}
+        if(npc.timer===1){
+          npc.step++
+          npc.timer--
+        }
+        if(npc.steps&&npc.step===npc.steps.length){npc.step=0}
       })
       
       // tick down virus
@@ -80,13 +86,22 @@ export const appSlice = createSlice({
             id = action.payload.id
             state.npcs[state.room][id].color ='green'
           break
+          case 'npc/wait':
+            id = action.payload.id
+            if(state.npcs[state.room][id].timer === 0) { state.npcs[state.room][id].timer = action.payload.step.length }
+          break          
           case 'npc/goto':
             id = action.payload.id
+            let destination = action.payload.step.destination
+            let location = [Math.round(state.npcs[state.room][id].location[0]),Math.round(state.npcs[state.room][id].location[1])]
+            state.npcs[state.room][id].timer=0
             state.npcs[state.room][id].rotation = rotateTo(state.npcs[state.room][id].location,action.payload.step.destination)
             eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
             state.npcs[state.room][id].location[0] += .25*eDirection[0]
             state.npcs[state.room][id].location[1] += .25*eDirection[1]
-            if(Math.floor(state.npcs[state.room][id].location[0]) === action.payload.step.destination[0] && Math.floor(state.npcs[state.room][id].location[1]) === action.payload.step.destination[1] ) {state.npcs[state.room][id].step = state.npcs[state.room][id].step+1}
+            if( location[0] === destination[0] && location[1] === destination[1] ) {
+                state.npcs[state.room][id].step++
+              }
           break
           case 'npc/infect':
             id = action.payload.id

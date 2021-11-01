@@ -66,35 +66,38 @@ bullets.forEach((bullet,i)=>{
  useEffect(() => {
   calculateFOV()
   infect()
-  let turn
-  walls.forEach((wall)=>{ 
-  if(wall.location[0]===Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])&&wall.location[1]+9===Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])){
-    props.registerDispatch({type:'npc/modXY', payload: {id: id } })
-    }
-  })
 
-  obstacles.forEach((obstacle)=>{
-    if( (Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])>=obstacle.location[0]&&Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])<=obstacle.location[0]+obstacle.width) && ( Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])>=obstacle.location[1]&&Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])<=obstacle.location[1]+obstacle.height) ){
-    props.registerDispatch({type:'npc/modXY', payload: {id: id } })
-    }
-  })
-
-  if(Math.floor(player.x)===location[0]&&Math.floor(player.y)===location[1]){
-    props.registerDispatch({type:'npc/modXY', payload: {id: id } })
-  }
-
-  if(x>=99||x<=-1) {
-    props.registerDispatch({type:'npc/modXY', payload: {id: id } })
-  }
-
-  if(y>=98||y<=1) {
-    props.registerDispatch({type:'npc/modXY', payload: {id: id } })
-  }  
-
-  if(steps) {
+  if(steps&&steps[step]) {
     props.registerDispatch({type:'npc/'+steps[step].verb, payload: {id: id, step: steps[step]} })
   } 
-  else { props.registerDispatch({type:'npc/move', payload: {id: id} }) }
+  else { 
+
+
+    walls.forEach((wall)=>{ 
+    if(wall.location[0]===Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])&&wall.location[1]+9===Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])){
+      props.registerDispatch({type:'npc/modXY', payload: {id: id } })
+      }
+    })
+
+    obstacles.forEach((obstacle)=>{
+      if( (Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])>=obstacle.location[0]&&Math.floor(x)+Math.round(calculate2dRotation(rotation)[0])<=obstacle.location[0]+obstacle.width) && ( Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])>=obstacle.location[1]&&Math.floor(y)+Math.round(calculate2dRotation(rotation)[1])<=obstacle.location[1]+obstacle.height) ){
+      props.registerDispatch({type:'npc/modXY', payload: {id: id } })
+      }
+    })
+
+    if(Math.floor(player.x)===location[0]&&Math.floor(player.y)===location[1]){
+      props.registerDispatch({type:'npc/modXY', payload: {id: id } })
+    }
+
+    if(x>=99||x<=-1) {
+      props.registerDispatch({type:'npc/modXY', payload: {id: id } })
+    }
+
+    if(y>=98||y<=1) {
+      props.registerDispatch({type:'npc/modXY', payload: {id: id } })
+    }  
+    props.registerDispatch({type:'npc/move', payload: {id: id} }) 
+  }
 
 })
 
