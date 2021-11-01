@@ -19,6 +19,7 @@ export const appSlice = createSlice({
     closeDoor: 0,
     bullets: [],
     obstacles: obstacles[0],
+    spawn: {},
     x: 50,
     y: 15,
     rotation: 180,
@@ -34,6 +35,8 @@ export const appSlice = createSlice({
     doAct: (state, i) => {
       if(state.destination) {
         if(Math.round(state.x)!==state.destination[0]||Math.round(state.y)!==state.destination[1]){
+
+          state.rotation = rotateTo([Math.round(state.x),Math.round(state.y)], state.destination)
           i.payload.push({type:'input/up', payload: null})
           i.payload.push({type:'input/animatePlayer', payload: true})
         } else {
@@ -65,6 +68,7 @@ export const appSlice = createSlice({
           state.doors[i].rotation = state.doors[i].state.includes('vertical')? 90 : 0
         })
       }
+
       let playerHasMoved = false
       i.payload.forEach((action)=>{
         let id = null
