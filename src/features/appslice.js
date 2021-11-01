@@ -90,6 +90,10 @@ export const appSlice = createSlice({
             id = action.payload.id
             state.npcs[state.room][id].color ='green'
           break
+          case 'npc/seen':
+            id = action.payload.id
+            state.npcs[state.room][id].color ='green'
+          break          
           case 'npc/wait':
             id = action.payload.id
             if(state.npcs[state.room][id].timer === 0) { state.npcs[state.room][id].timer = action.payload.step.length }
@@ -103,9 +107,7 @@ export const appSlice = createSlice({
             eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
             state.npcs[state.room][id].location[0] += .25*eDirection[0]
             state.npcs[state.room][id].location[1] += .25*eDirection[1]
-            if( location[0] === destination[0] && location[1] === destination[1] ) {
-                state.npcs[state.room][id].step++
-              }
+            if( location[0] === destination[0] && location[1] === destination[1] ) { state.npcs[state.room][id].step++ }
           break
           case 'npc/infect':
             id = action.payload.id
@@ -118,7 +120,7 @@ export const appSlice = createSlice({
             eDirection = calculate2dRotation(state.npcs[state.room][id].rotation)
             state.npcs[state.room][id].location[0] += .25*eDirection[0]
             state.npcs[state.room][id].location[1] += .25*eDirection[1]
-            //if(state.npcs[state.room][id].location[1]<-1||state.npcs[state.room][id].location[0]<-1 || state.npcs[state.room][id].location[1]>100 || state.npcs[state.room][id].location[0]>100 ) { state.npcs[state.room][id].location = state.npcs[state.room][id].startLocation }
+            if(state.npcs[state.room][id].location[1]<-1||state.npcs[state.room][id].location[0]<-1 || state.npcs[state.room][id].location[1]>100 || state.npcs[state.room][id].location[0]>100 ) { state.npcs[state.room][id].location = state.npcs[state.room][id].startLocation }
           break
           case 'npc/modXY':
             id = action.payload.id

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import './NPC.css';
 import {calculate2dRotation} from '../../app/calculate2dRotation'
+import {rotateTo} from '../../app/rotateTo'
 import { isWallBetween } from '../../app/isWallBetween'
 
 function NPC(props) {
@@ -21,29 +22,16 @@ let steps = useSelector((state) => state.app.npcs[state.app.room][id].steps)
 let step = useSelector((state) => state.app.npcs[state.app.room][id].step)
 
 const calculateFOV = ()=>{
-  let fov = calculate2dRotation(rotation)
   if(isWallBetween(walls,[x,y],[player.x,player.y])) {return}
-  let field = []
-  let inX, inY
-  if(fov[0]>=0) {
-    if (player.x>=location[0]&&player.x<=location[0]+30*(fov[0]+fov[0]*.45)) {inX=true} 
-    if (player.x>=location[0]&&player.x<=location[0]+30*(fov[0]-fov[0]*.45)) {inX=true}       
+  if(Math.abs(player.x - x) > 25 || Math.abs(player.y - y) > 25) {return}
+  let rotate2 = Math.floor( rotateTo(location, [player.x,player.y]) )
+  if ( rotation - 30 < 0 ) {
+    if((rotate2 >= 360 - (30-rotation)) || rotate2 <= rotation+30 ) { props.registerDispatch({type:'npc/seen', payload: {id: id } }) }
   }
-  if(fov[0]<0) {
-    if (player.x<=location[0]&&player.x>=location[0]+30*(fov[0]+fov[0]*.45)) {inX=true} 
-    if (player.x<=location[0]&&player.x>=location[0]+30*(fov[0]-fov[0]*.45)) {inX=true} 
+  else if ( rotation + 30 > 359 ) {
+    if((rotate2 < (30+rotation) - 360) || (rotate2 > rotation-30)) { props.registerDispatch({type:'npc/seen', payload: {id: id } }) }
   }
-  if(fov[1]>=0) {
-    if (player.y>=location[1]&&player.y<=location[1]+30*(fov[1]+fov[1]*.45)) {inY=true} 
-    if (player.y>=location[1]&&player.y<=location[1]+30*(fov[1]-fov[1]*.45)) {inY=true} 
-  }
-  if(fov[1]<0) {
-    if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]+fov[1]*.45)) {inY=true} 
-    if (player.y<=location[1]&&player.y>=location[1]+30*(fov[1]-fov[1]*.45)) {inY=true} 
-  }
-  if(inX&&inY) {
-    props.registerDispatch({type:'npc/green', payload: {id: id } })
-  }
+  else if ( rotate2 > rotation - 30 && rotate2 < rotation + 30 )  { props.registerDispatch({type:'npc/seen', payload: {id: id } }) }
 }
 
 const infect = ()=>{
