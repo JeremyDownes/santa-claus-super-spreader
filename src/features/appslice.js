@@ -19,7 +19,7 @@ export const appSlice = createSlice({
     closeDoor: 0,
     bullets: [],
     obstacles: obstacles[0],
-    spawn: {},
+    spawn: {room: 0, location: [50,15]},
     x: 50,
     y: 15,
     rotation: 180,
@@ -29,13 +29,13 @@ export const appSlice = createSlice({
     viralLoad: 0,
     packageDelivered: false,
     loadingRoom: false,
-    room: 0
+    room: 0,
+    seen: false
   },
   reducers: {
     doAct: (state, i) => {
       if(state.destination) {
         if(Math.round(state.x)!==state.destination[0]||Math.round(state.y)!==state.destination[1]){
-
           state.rotation = rotateTo([Math.round(state.x),Math.round(state.y)], state.destination)
           i.payload.push({type:'input/up', payload: null})
           i.payload.push({type:'input/animatePlayer', payload: true})
@@ -74,6 +74,7 @@ export const appSlice = createSlice({
         let id = null
         let direction = []
         let eDirection
+        if(!state.seen) {
         switch (action.type) {
             case 'loadRoom':
             state.walls = walls[action.payload.destination]
@@ -91,8 +92,13 @@ export const appSlice = createSlice({
             state.npcs[state.room][id].color ='green'
           break
           case 'npc/seen':
-            id = action.payload.id
-            state.npcs[state.room][id].color ='green'
+            state.room = state.spawn.room
+            state.x = state.spawn.location[0]
+            state.y = state.spawn.location[1]
+            state.npcs = npcs
+            state.destination = null
+            state.isMoving = false
+            state.seen = true
           break          
           case 'npc/wait':
             id = action.payload.id
@@ -274,8 +280,15 @@ export const appSlice = createSlice({
             state.npcs[state.room][id].viralLoad=(state.npcs[state.room][id].viralLoad*1000)/1000
           break          
         }
-
+      } 
       })
+      if(state.seen) {
+        state.seen = false
+        state.walls = walls[state.room]
+        state.doors = doors[state.room]
+        state.exits = exits[state.room]
+        state.loadingRoom = state.room
+      }
       state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})
     }
   },
