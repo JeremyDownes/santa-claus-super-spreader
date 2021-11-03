@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/santa-claus-super-spreader/static/css/main.335c00f1.chunk.css",
-    "main.js": "/santa-claus-super-spreader/static/js/main.2193177f.chunk.js",
-    "main.js.map": "/santa-claus-super-spreader/static/js/main.2193177f.chunk.js.map",
+    "main.js": "/santa-claus-super-spreader/static/js/main.db3b2d67.chunk.js",
+    "main.js.map": "/santa-claus-super-spreader/static/js/main.db3b2d67.chunk.js.map",
     "runtime-main.js": "/santa-claus-super-spreader/static/js/runtime-main.aa8704c2.js",
     "runtime-main.js.map": "/santa-claus-super-spreader/static/js/runtime-main.aa8704c2.js.map",
     "static/js/2.c985080d.chunk.js": "/santa-claus-super-spreader/static/js/2.c985080d.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.aa8704c2.js",
     "static/js/2.c985080d.chunk.js",
     "static/css/main.335c00f1.chunk.css",
-    "static/js/main.2193177f.chunk.js"
+    "static/js/main.db3b2d67.chunk.js"
   ]
 }
