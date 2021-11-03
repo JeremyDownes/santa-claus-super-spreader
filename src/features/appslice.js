@@ -287,6 +287,7 @@ export const appSlice = createSlice({
         state.walls = walls[state.room]
         state.doors = doors[state.room]
         state.exits = exits[state.room]
+        state.obstacles = obstacles[state.room]
         state.loadingRoom = state.room
       }
       state.bullets = state.bullets.filter((bullet)=>{return !bullet.remove})
