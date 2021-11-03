@@ -29,6 +29,7 @@ let todos = [
 "adaptive screen units",
 "fix non-terminating animations",
 "fix doors/rotations for 0/180 rots",
+"open doors for NPCs",
 "add trans-house navigation on successful delivery",
 "add object collections and program interactions",
 "preload images",
