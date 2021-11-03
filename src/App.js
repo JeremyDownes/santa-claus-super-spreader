@@ -23,6 +23,22 @@ let events = []
 let eid = 0
 let bid = 0
 let key = 0
+
+let todos = [
+"mobilize",
+"adaptive screen units",
+"fix non-terminating animations",
+"fix doors/rotations for 0/180 rots",
+"add trans-house navigation on successful delivery",
+"add object collections and program interactions",
+"preload images",
+"create and add animations for NPCs",
+"create and add more furniture and decorations",
+"create and add cutscene",
+"build more rooms / houses",
+"build more NPC interactions"
+] 
+
 const registerDispatch = (newEvent)=>{
   events.push(newEvent)
 }
@@ -36,6 +52,10 @@ useEffect(() => {
 
   return (
     <div className="App"> 
+    <div style={{color:'white',fontSize: '1rem', position: 'absolute', left: '10px', display: 'block', textAlign: 'left'}} >
+      <h1>To Do:</h1>
+      {todos.map((i)=>{return <p >{i}</p>})}
+    </div>
       <div id = 'gameboard'>
         {walls.map((i)=><Wall key={key++} color={i.color} location={i.location} content={i.content}/>)}
         {doors.map((i)=><Door key={key++} location={i.location} rotation={i.rotation} state={i.state}/>)}
